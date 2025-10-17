@@ -4,7 +4,7 @@
      padding: 20px;
  }
 
- .tabs {
+  .schedule-container .tabs {
      display: flex;
      margin: 0 4%;
      margin-bottom: 20px;
@@ -12,15 +12,15 @@
      border-radius: 2em;
  }
 
- .tab:nth-child(1) {
+  .schedule-container .tab:nth-child(1) {
     border-radius: 2em 0 0 2em;
  }
 
-  .tab:nth-child(3) {
+   .schedule-container .tab:nth-child(3) {
       border-radius: 0 2em 2em 0;
   }
 
- .tab {
+  .schedule-container .tab {
     padding: 12px 24px;
     background: var(--primary-color);
     border: none;
@@ -28,27 +28,26 @@
     font-weight: bold;
     transition: all 0.3s ease;
     flex: 1;
-    font-size: var(--font-size-xl);
  }
 
- .tab.active {
+  .schedule-container .tab.active {
      background: var(--accent-color-light);
      color: white;
  }
 
- .tab:hover:not(.active) {
+  .schedule-container .tab:hover:not(.active) {
      background: var(--accent-color);
  }
 
- .schedule-content {
+  .schedule-container .schedule-content {
      display: none;
  }
 
- .schedule-content.active {
+  .schedule-container .schedule-content.active {
      display: block;
  }
 
- .event-item {
+  .schedule-container .event-item {
      display: flex;
      margin-bottom: 15px;
      padding: 15px;
@@ -61,12 +60,12 @@
      transition: all 0.5s ease;
  }
 
- .event-item.visible {
+  .schedule-container .event-item.visible {
      opacity: 1;
      transform: translateX(0);
  }
 
- .event-time {
+  .schedule-container .event-time {
      font-weight: bold;
      color: var(--accent-color-light);
      font-size: var(--font-size-2xl);
@@ -75,18 +74,18 @@
      align-items: center;
  }
 
- .event-details h3 {
+  .schedule-container .event-details h3 {
      margin: 0 0 5px 0;
      font-size: var(--font-size-2xl);
  }
 
- .event-details p {
+  .schedule-container .event-details p {
      margin: 0;
      font-style: italic;
      font-size: var(--font-size-lg);
  }
 
- .loading {
+  .schedule-container .loading {
      text-align: center;
      padding: 20px;
      font-style: italic;

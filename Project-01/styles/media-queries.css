@@ -1,0 +1,14 @@
+/* Media queries */
+@media (max-width: 768px) {
+    .cta-button {
+        padding: 1em 2em;
+    };
+}
+
+@media (min-width: 1024px) {}
+
+@media (min-width: 1200px) {
+    h1 {
+        font-size: 5rem;
+    }
+}
