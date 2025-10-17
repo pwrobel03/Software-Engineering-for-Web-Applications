@@ -1,0 +1,206 @@
+/* Zmienne CSS - łatwa zmiana stylów w całym projekcie */
+:root {
+    /* Kolory */
+    --base-color: #fff;
+    --base-variant: #f8f9fc;
+    --text-color: #111528;
+    --secondary-color: #232738;
+    --primary-color: #161f32;
+    --accent-color: #eb590c;
+    --accent-color-light: #fb8f38;
+    /* Typografia */
+    --font-primary: 'Inter', 'Arial', sans-serif;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 2rem;
+
+    /* Breakpointy */
+    --mobile: 480px;
+    --tablet: 768px;
+    --desktop: 1024px;
+    --wide: 1200px;
+
+    /* Max width kontenera */
+    --container-max-width: 1200px;
+
+    /* Przestrzenie */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+
+    /* Border radius */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+
+    /* shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* dark mode implementation */
+
+.darkmode {
+    --base-color: #070a10;
+    --base-variant: #0a0e17;
+    --text-color: #ffffff;
+    --secondary-text: #a4a5b8;
+    --primary-color: #161f32;
+    --accent-color: #eb590c;
+    --acent-color-light: #fb8f38;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: Poppins;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--base-color);
+    color: var(--text-color);
+    transition: all 0.3s ease-in-out;
+}
+
+header,
+section {
+    padding: 70px min(50px, 7%);
+}
+
+section {
+    background-color: var(--base-variant);
+}
+
+p {
+    margin: 10px 0 20px 0;
+    color: var(--secondary-text);
+}
+
+button {
+    border: none;
+    padding: .8em 2em;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+    font: inherit;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.cta-button {
+    background-color: var(--accent-color);
+}
+
+#theme-switch {
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: var(--base-variant);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+#theme-switch svg {
+    fill: var(--primary-color);
+}
+
+#theme-switch svg:last-child {
+    display: none;
+}
+
+.darkmode #theme-switch svg:first-child {
+    display: none;
+}
+
+.darkmode #theme-switch svg:last-child {
+    display: block;
+}
+
+/* Klasy użytkowe dla flexbox */
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.align-start {
+    align-items: flex-start;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+/* Kontener */
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-sm);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    padding: var(--space-xl) 0;
+}
+
+/* Przyciski */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xs) var(--space-md);
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    gap: var(--space-xs);
+}
+
+.section-title {}
+
+/* Media queries */
+@media (min-width: 768px) {}
+
+@media (min-width: 1024px) {}

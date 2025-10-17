@@ -135,4 +135,4 @@ kontakt@noczmagia.pl
 
 **Follow Us**
 
-© 2024 Night with Magic - Fantasy Reading Marathon. All rights reserved.
+© 2025 Night with Magic - Fantasy Reading Marathon. All rights reserved.
