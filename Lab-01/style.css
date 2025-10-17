@@ -1,0 +1,27 @@
+  /* Stylowanie listy ćwiczeń */
+  .exercise-section {
+      margin: 0 auto;
+  }
+
+  .exercise-list {
+      margin: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+  }
+
+  .exercise-list a {
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      padding: 5px 0;
+  }
+
+  .exercise-list a:hover {
+      text-decoration: underline;
+  }
+
+  .exercise-list li {
+      font-weight: bold;
+      width: auto;
+  }
