@@ -72,11 +72,6 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-header,
-section {
-    padding: 70px min(50px, 7%);
-}
-
 section {
     background-color: var(--base-variant);
 }
@@ -114,6 +109,7 @@ button {
     position: fixed;
     top: 20px;
     right: 20px;
+    z-index: 20;
 }
 
 #theme-switch svg {
@@ -165,21 +161,17 @@ button {
     flex: 1;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+}
+
 /* Kontener */
 .container {
     width: 100%;
     max-width: var(--container-max-width);
     margin: 0 auto;
     padding: 0 var(--space-sm);
-}
-
-/* Hero Section */
-.hero {
-    min-height: 100vh;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    display: flex;
-    align-items: center;
-    padding: var(--space-xl) 0;
 }
 
 /* Przyciski */
@@ -204,3 +196,7 @@ button {
 @media (min-width: 768px) {}
 
 @media (min-width: 1024px) {}
+
+.empty {
+    min-height: 3000px;
+}

@@ -1,0 +1,181 @@
+{
+    "meta": {
+        "title": "Noc z Magią - Fantasy Reading Marathon",
+        "description": "24-godzinne święto miłośników literatury fantasy"
+    },
+    "navigation": {
+        "home": "Strona Główna",
+        "program": "Program",
+        "zones": "Strefy",
+        "attractions": "Atrakcje",
+        "register": "Zapisz się"
+    },
+    "hero": {
+        "subtitle": "Fantasy Reading Marathon",
+        "title": "Noc z Magią",
+        "description": "24-godzinne święto miłośników literatury fantasy. Zanurz się w światy równoległe, smoków, magii i niezwykłych przygód.",
+        "date": "Data",
+        "date_value": "23-24 Listopada 2024",
+        "place": "Miejsce",
+        "place_value": "Stara Biblioteka Uniwersytecka",
+        "duration": "Czas trwania",
+        "duration_value": "24 godziny non-stop",
+        "cta": "Zapisz się na maraton",
+        "spots": "300 miejsc dla zapalonych czytelników fantasy"
+    },
+    "program": {
+        "title": "Program Maratonu",
+        "subtitle": "24 godziny nieprzerwanej przygody z literaturą fantasy",
+        "days": {
+            "day1": "Dzień 1",
+            "night": "Noc",
+            "day2": "Dzień 2"
+        },
+        "events": {
+            "opening": {
+                "time": "17:00",
+                "title": "Otwarcie maratonu",
+                "description": "Rejestracja uczestników"
+            },
+            "lecture": {
+                "time": "18:00",
+                "title": "Wykład inauguracyjny",
+                "description": "Ewolucja gatunku fantasy"
+            },
+            "session1": {
+                "time": "19:00",
+                "title": "Sesja czytelnicza #1",
+                "description": "Rozpoczęcie maratonu"
+            },
+            "author": {
+                "time": "21:00",
+                "title": "Spotkanie z autorem",
+                "description": "Andrzej Pilipiuk"
+            },
+            "night_session": {
+                "time": "23:00",
+                "title": "Nocna sesja",
+                "description": "Horrory fantasy przy świecach"
+            }
+        }
+    },
+    "zones": {
+        "title": "Strefy Maratonu",
+        "subtitle": "Cztery unikalne przestrzenie zaprojektowane dla maksymalnego komfortu i przyjemności czytania",
+        "quiet": {
+            "title": "Strefa Cichego Czytania",
+            "features": [
+                "Wygodne pufy i leżaki",
+                "Osobne stanowiska do czytania",
+                "Oświetlenie dostosowane do długiego czytania"
+            ]
+        },
+        "discussion": {
+            "title": "Strefa Dyskusyjna",
+            "features": [
+                "Krzesła w kole do dyskusji",
+                "Tablice do zapisywania pomysłów",
+                "Biblioteka referencyjna"
+            ]
+        },
+        "relax": {
+            "title": "Strefa Relaksu",
+            "features": [
+                "Hamaki i maty do leżenia",
+                "Cicha muzyka ambient",
+                "Herbaciarnia z naparami fantasy"
+            ]
+        },
+        "workshop": {
+            "title": "Strefa Warsztatowa",
+            "features": [
+                "Stanowiska do pisania",
+                "Komputery do researchu",
+                "Materiały szkoleniowe"
+            ]
+        }
+    },
+    "attractions": {
+        "title": "Atrakcje Specjalne",
+        "subtitle": "Niezapomniane doświadczenia czekające na każdego uczestnika",
+        "sessions": {
+            "title": "Sesje Tematyczne",
+            "items": [
+                "Godzina Tolkiena - czytanie fragmentów Władcy Pierścieni",
+                "Polscy mistrzowie - Sapkowski, Zajdel, Pilipiuk",
+                "Young Adult Fantasy - współczesne bestsellery",
+                "Fantasy historyczne - połączenie historii z magią"
+            ]
+        },
+        "contests": {
+            "title": "Konkursy i Wyzwania",
+            "items": [
+                "Wyzwanie 24 książki w 24 godziny (fragmenty)",
+                "Konkurs na najlepszy strój fantasy",
+                "Quiz wiedzy o światach fantasy",
+                "Zgadnij autora po fragmencie"
+            ]
+        },
+        "guests": {
+            "title": "Goście Specjalni",
+            "items": [
+                "Agnieszka Fantasy - popularna bookstagramerka",
+                "Prof. Jan Mythos - literaturoznawca",
+                "Michał Worldbuilder - autor bloga o tworzeniu światów",
+                "Zespół 'Czytamy Fantasy' - podcast literacki"
+            ]
+        },
+        "package": {
+            "title": "Pakiet Uczestnika",
+            "items": [
+                "Limitowana edycja koszulki maratonu",
+                "Tote bag z logo wydarzenia",
+                "Zestaw zakładek fantasy",
+                "Certyfikat ukończenia maratonu",
+                "Książka-niespodzianka od sponsora"
+            ]
+        }
+    },
+    "registration": {
+        "title": "Zapisz się na Maraton",
+        "subtitle": "Wypełnij formularz i dołącz do 300 zapalonych czytelników fantasy",
+        "form": {
+            "name": "Imię i nazwisko *",
+            "name_placeholder": "Jan Kowalski",
+            "email": "Email *",
+            "email_placeholder": "email@example.com",
+            "phone": "Telefon",
+            "phone_placeholder": "+48 123 456 789",
+            "age": "Wiek *",
+            "age_placeholder": "18",
+            "tshirt": "Rozmiar koszulki *",
+            "tshirt_placeholder": "Wybierz rozmiar",
+            "favorite_book": "Ulubiona książka fantasy",
+            "favorite_book_placeholder": "Władca Pierścieni",
+            "dietary": "Wymagania dietetyczne",
+            "dietary_placeholder": "Wegetarianizm, alergie...",
+            "submit": "Zapisz się na maraton"
+        },
+        "rules": {
+            "title": "Zasady uczestnictwa:",
+            "items": [
+                "Wiek: 16+ (młodsi za zgodą rodziców)",
+                "Możliwość przyniesienia własnych książek",
+                "Udział we wszystkich sesjach nieobowiązkowy",
+                "Możliwość drzemki w strefie relaksu",
+                "Szacunek dla innych czytelninków"
+            ]
+        }
+    },
+    "footer": {
+        "title": "Noc z Magią",
+        "description": "24-godzinny maraton czytelniczy fantasy, który na zawsze pozostanie w Twojej pamięci.",
+        "contact": "Kontakt",
+        "address": "Stara Biblioteka Uniwersytecka",
+        "street": "ul. Książkowa 15, Warszawa",
+        "email": "kontakt@noczmagia.pl",
+        "phone": "+48 123 456 789",
+        "follow": "Śledź nas",
+        "copyright": "© 2024 Noc z Magią - Fantasy Reading Marathon. Wszystkie prawa zastrzeżone."
+    }
+}

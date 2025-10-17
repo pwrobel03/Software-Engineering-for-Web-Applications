@@ -1,0 +1,181 @@
+{
+    "meta": {
+        "title": "Night with Magic - Fantasy Reading Marathon",
+        "description": "24-hour celebration for fantasy literature lovers"
+    },
+    "navigation": {
+        "home": "Home",
+        "program": "Program",
+        "zones": "Zones",
+        "attractions": "Attractions",
+        "register": "Register"
+    },
+    "hero": {
+        "subtitle": "Fantasy Reading Marathon",
+        "title": "Night with Magic",
+        "description": "24-hour celebration for fantasy literature lovers. Immerse yourself in parallel worlds, dragons, magic, and amazing adventures.",
+        "date": "Date",
+        "date_value": "November 23-24, 2024",
+        "place": "Place",
+        "place_value": "Old University Library",
+        "duration": "Duration",
+        "duration_value": "24 hours non-stop",
+        "cta": "Register for Marathon",
+        "spots": "300 spots for passionate fantasy readers"
+    },
+    "program": {
+        "title": "Marathon Program",
+        "subtitle": "24 hours of uninterrupted fantasy literature adventure",
+        "days": {
+            "day1": "Day 1",
+            "night": "Night",
+            "day2": "Day 2"
+        },
+        "events": {
+            "opening": {
+                "time": "17:00",
+                "title": "Marathon opening",
+                "description": "Participant registration"
+            },
+            "lecture": {
+                "time": "18:00",
+                "title": "Inaugural lecture",
+                "description": "Evolution of fantasy genre"
+            },
+            "session1": {
+                "time": "19:00",
+                "title": "Reading session #1",
+                "description": "Marathon start"
+            },
+            "author": {
+                "time": "21:00",
+                "title": "Meeting with author",
+                "description": "Andrzej Pilipiuk"
+            },
+            "night_session": {
+                "time": "23:00",
+                "title": "Night session",
+                "description": "Fantasy horror by candlelight"
+            }
+        }
+    },
+    "zones": {
+        "title": "Marathon Zones",
+        "subtitle": "Four unique spaces designed for maximum comfort and reading pleasure",
+        "quiet": {
+            "title": "Quiet Reading Zone",
+            "features": [
+                "Comfortable poufs and deckchairs",
+                "Individual reading stations",
+                "Lighting adapted for long reading"
+            ]
+        },
+        "discussion": {
+            "title": "Discussion Zone",
+            "features": [
+                "Chairs in circle for discussions",
+                "Whiteboards for idea sharing",
+                "Reference library"
+            ]
+        },
+        "relax": {
+            "title": "Relaxation Zone",
+            "features": [
+                "Hammocks and yoga mats",
+                "Quiet ambient music",
+                "Fantasy tea house with herbal infusions"
+            ]
+        },
+        "workshop": {
+            "title": "Workshop Zone",
+            "features": [
+                "Writing stations",
+                "Computers for research",
+                "Training materials"
+            ]
+        }
+    },
+    "attractions": {
+        "title": "Special Attractions",
+        "subtitle": "Unforgettable experiences waiting for every participant",
+        "sessions": {
+            "title": "Thematic Sessions",
+            "items": [
+                "Tolkien Hour - reading Lord of the Rings fragments",
+                "Polish Masters - Sapkowski, Zajdel, Pilipiuk",
+                "Young Adult Fantasy - contemporary bestsellers",
+                "Historical Fantasy - combination of history and magic"
+            ]
+        },
+        "contests": {
+            "title": "Contests and Challenges",
+            "items": [
+                "24 books in 24 hours challenge (fragments)",
+                "Best fantasy costume contest",
+                "Fantasy worlds knowledge quiz",
+                "Guess the author by fragment"
+            ]
+        },
+        "guests": {
+            "title": "Special Guests",
+            "items": [
+                "Agnieszka Fantasy - popular bookstagrammer",
+                "Prof. Jan Mythos - literature researcher",
+                "Michał Worldbuilder - worldbuilding blog author",
+                "\"We Read Fantasy\" team - literary podcast"
+            ]
+        },
+        "package": {
+            "title": "Participant Package",
+            "items": [
+                "Limited edition marathon t-shirt",
+                "Tote bag with event logo",
+                "Fantasy bookmark set",
+                "Marathon completion certificate",
+                "Surprise book from sponsor"
+            ]
+        }
+    },
+    "registration": {
+        "title": "Register for Marathon",
+        "subtitle": "Fill out the form and join 300 passionate fantasy readers",
+        "form": {
+            "name": "Full Name *",
+            "name_placeholder": "John Smith",
+            "email": "Email *",
+            "email_placeholder": "email@example.com",
+            "phone": "Phone",
+            "phone_placeholder": "+48 123 456 789",
+            "age": "Age *",
+            "age_placeholder": "18",
+            "tshirt": "T-shirt size *",
+            "tshirt_placeholder": "Select size",
+            "favorite_book": "Favorite fantasy book",
+            "favorite_book_placeholder": "Lord of the Rings",
+            "dietary": "Dietary requirements",
+            "dietary_placeholder": "Vegetarianism, allergies...",
+            "submit": "Register for marathon"
+        },
+        "rules": {
+            "title": "Participation rules:",
+            "items": [
+                "Age: 16+ (younger with parental consent)",
+                "Possibility to bring own books",
+                "Participation in all sessions optional",
+                "Nap possibility in relaxation zone",
+                "Respect for other readers"
+            ]
+        }
+    },
+    "footer": {
+        "title": "Night with Magic",
+        "description": "24-hour fantasy reading marathon that will stay in your memory forever.",
+        "contact": "Contact",
+        "address": "Old University Library",
+        "street": "Book Street 15, Warsaw",
+        "email": "contact@nightwithmagic.pl",
+        "phone": "+48 123 456 789",
+        "follow": "Follow us",
+        "copyright": "© 2024 Night with Magic - Fantasy Reading Marathon. All rights reserved."
+    }
+}

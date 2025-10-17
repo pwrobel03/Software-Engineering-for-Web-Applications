@@ -1,0 +1,40 @@
+.hero-section {
+    width: 100vw;
+    height: 100vh;
+    background-color: beige;
+    position: relative;
+}
+
+.hero-section img {
+    object-fit: cover;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    filter: brightness(0.2);
+}
+
+.hero-content {
+    min-height: 100vh;
+    z-index: 10;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-section-title {
+    color: var(--accent-color-light);
+    display: flex;
+    gap: 1em;
+    text-transform: uppercase;
+}
+
+.hero-section-title svg {
+    fill: var(--accent-color-light);
+}
+
+
+
+
+
