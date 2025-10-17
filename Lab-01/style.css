@@ -1,27 +1,84 @@
-  /* Stylowanie listy ćwiczeń */
-  .exercise-section {
-      margin: 0 auto;
-  }
+/* Stylowanie listy ćwiczeń */
+.exercise-section {
+    margin: 0 auto;
+}
 
-  .exercise-list {
-      margin: 20px;
-      padding: 20px;
-      background-color: #f9f9f9;
-      border-radius: 8px;
-  }
+.exercise-list {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
 
-  .exercise-list a {
-      text-decoration: none;
-      font-weight: bold;
-      display: inline-block;
-      padding: 5px 0;
-  }
+.exercise-list a {
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px 0;
+}
 
-  .exercise-list a:hover {
-      text-decoration: underline;
-  }
+.exercise-list a:hover {
+    text-decoration: underline;
+}
 
-  .exercise-list li {
-      font-weight: bold;
-      width: auto;
-  }
+.exercise-list li {
+    font-weight: bold;
+    width: auto;
+}
+  
+/* Ćwiczenie 1 - Artykuł */
+.article-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    max-width: 1920px;
+}
+    
+.article-title {
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+    
+.article-author {
+    color: cornflowerblue;
+    font-weight: bold;
+    margin: 10px 0;
+}
+    
+.article-content {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: block;
+}
+    
+.article-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Stylowanie linków nawigacyjnych */
+.nav-link {
+    cursor: pointer;
+}
+
+.back-link {
+    display: inline-block;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 1em 6em;
+    background-color: cornflowerblue;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-link:hover {
+    background-color: rgb(69, 112, 190);
+}
