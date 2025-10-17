@@ -100,6 +100,64 @@
     background-color: #e1e1e1;
 }
 
+/* Ćwiczenie 3 - kolorowe kwadraty */
+.squares-container {
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.squares-container h1 {
+    margin: 20px auto;;
+
+}
+
+.squares-row {
+    display: flex;
+    margin: 1em auto;
+    gap: 1em;
+    justify-content: flex-start;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    margin-right: 15px;
+}
+
+/* to center squares */
+.square:last-child {
+    margin-right: 0;
+}
+
+.square-1 {
+    background-color: #3498db;
+}
+
+.square-2 {
+    background-color: #e74c3c;
+}
+
+.square-3 {
+    background-color: #2ecc71;
+}
+
+.square-4 {
+    background-color: #f39c12;
+}
+
+.square-5 {
+    background-color: #9b59b6;
+}
+
+.square-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
 /* Stylowanie linków nawigacyjnych */
 .nav-link {
     cursor: pointer;
