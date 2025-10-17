@@ -6,9 +6,15 @@
         <title>Night with magic!</title>
         <link rel="stylesheet" href="./styles/style.css" />
         <link rel="stylesheet" href="./styles/hero.css" />
+        <link rel="stylesheet" href="./styles/schedule.css" />
         <script
             type="text/javascript"
             src="./scripts/darkmode.js"
+            defer
+        ></script>
+        <script
+            type="text/javascript"
+            src="./scripts/schedule.js"
             defer
         ></script>
     </head>
@@ -82,6 +88,8 @@
                     />
                 </svg>
             </button>
+
+            <!-- Heor section -->
             <section class="hero-section">
                 <img
                     src="./assets/images/hero-section-image.jpeg"
@@ -154,7 +162,9 @@
                             </svg>
                             <div>
                                 <p class="text-secondary">Miejsce</p>
-                                <p class="text-white">08-09 Listopada 2025</p>
+                                <p class="text-white">
+                                    Stara biblioteka uniwersytecka
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -162,6 +172,21 @@
                     <p class="text-secondary">
                         300 miejsc dla zapalonych czytelników fantasy
                     </p>
+                </div>
+            </section>
+
+            <!-- Schedule -->
+            <section class="schedule">
+                <div class="schedule-container">
+                    <div class="tabs">
+                        <button class="tab active" data-tab="day1">
+                            🌅 Dzień 1
+                        </button>
+                        <button class="tab" data-tab="night">🌙 Noc</button>
+                        <button class="tab" data-tab="day2">☀️ Dzień 2</button>
+                    </div>
+
+                    <div id="schedule-content"></div>
                 </div>
             </section>
             <section class="empty">lol</section>
