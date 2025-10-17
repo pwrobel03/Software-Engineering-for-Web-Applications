@@ -1,71 +1,62 @@
  .schedule-container {
-     max-width: 1200px;
-     margin: 0 auto;
-     padding: 20px;
+    width: 100%;
  }
 
-  .schedule-container .tabs {
+ .schedule-container .tabs {
+     width: 100%;
      display: flex;
-     margin: 0 4%;
-     margin-bottom: 20px;
-     flex-direction: row;
-     border-radius: 2em;
+     margin-bottom: 2em;
  }
 
-  .schedule-container .tab:nth-child(1) {
-    border-radius: 2em 0 0 2em;
- }
+.tab {
+    width: 100%;
+}
 
-   .schedule-container .tab:nth-child(3) {
-      border-radius: 0 2em 2em 0;
-  }
-
-  .schedule-container .tab {
-    padding: 12px 24px;
-    background: var(--primary-color);
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    flex: 1;
+ .schedule-container .tab {
+     padding: 12px 24px;
+     border: none;
+     cursor: pointer;
+     font-weight: bold;
+     transition: all 0.3s ease;
+     border-radius: 0%;
  }
 
   .schedule-container .tab.active {
-     background: var(--accent-color-light);
-     color: white;
- }
+      background: var(--accent-color-light);
+      color: white;
+  }
 
-  .schedule-container .tab:hover:not(.active) {
-     background: var(--accent-color);
- }
+.schedule-container .tab:hover:not(.active) {
+    background: var(--accent-color);
+}
 
-  .schedule-container .schedule-content {
-     display: none;
- }
+.schedule-container .schedule-content {
+    display: none;
+}
 
-  .schedule-container .schedule-content.active {
-     display: block;
- }
+.schedule-container .schedule-content.active {
+    display: block;
+}
 
-  .schedule-container .event-item {
-     display: flex;
-     margin-bottom: 15px;
-     padding: 15px;
-     gap: 2em;
-     background: var(--base-color);
-     border-radius: 8px;
-     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-     opacity: 0;
-     transform: translateX(-30px);
-     transition: all 0.5s ease;
- }
+.schedule-container .event-item {
+    display: flex;
+    margin-bottom: 15px;
+    padding: 15px;
+    gap: 2em;
+    background: var(--base-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.5s ease;
+}
 
-  .schedule-container .event-item.visible {
+ .schedule-container .event-item.visible {
      opacity: 1;
      transform: translateX(0);
  }
 
-  .schedule-container .event-time {
+ .schedule-container .event-time {
      font-weight: bold;
      color: var(--accent-color-light);
      font-size: var(--font-size-2xl);
@@ -74,22 +65,11 @@
      align-items: center;
  }
 
-  .schedule-container .event-details h3 {
-     margin: 0 0 5px 0;
-     font-size: var(--font-size-2xl);
- }
-
-  .schedule-container .event-details p {
-     margin: 0;
-     font-style: italic;
-     font-size: var(--font-size-lg);
- }
-
-  .schedule-container .loading {
-     text-align: center;
-     padding: 20px;
-     font-style: italic;
- }
+.schedule-container .event-details p {
+    margin: 0;
+    font-style: italic;
+    font-size: var(--font-size-lg);
+}
 
  @keyframes fadeInUp {
      from {
