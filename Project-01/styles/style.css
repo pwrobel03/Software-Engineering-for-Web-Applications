@@ -4,10 +4,11 @@
     --base-color: #fff;
     --base-variant: #f8f9fc;
     --text-color: #111528;
-    --secondary-color: #232738;
+    --secondary-color: #a4a5b8;
     --primary-color: #161f32;
     --accent-color: #eb590c;
     --accent-color-light: #fb8f38;
+    --accent-color-bg: rgba(251,143,56,0.1);
     /* Typografia */
     --font-primary: 'Inter', 'Arial', sans-serif;
     --font-size-sm: 0.875rem;
@@ -95,6 +96,11 @@ button {
 
 .cta-button {
     background-color: var(--accent-color);
+    border-radius: 2em;
+    padding: 1em 8em;
+    text-transform: capitalize;
+    font-weight: bolder;
+    font-size: var(--font-size-xl);
 }
 
 #theme-switch {
@@ -192,10 +198,49 @@ main {
 
 .section-title {}
 
+h1 {
+    font-size: 5rem;
+}
+
+h2, h3 {
+    font-size: 2rem;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.text-secondary {
+    color: var(--secondary-color);
+}
+
+.gradient-text {
+    background-image: linear-gradient(to right, var(--accent-color-light), var(--accent-color));
+        /* Gradient idzie od koloru pomarańczowego (#ff7e5f) do brzoskwiniowego (#feb47b) */
+    
+        /* 2. KLUCZOWE: Przycinanie tła do kształtu tekstu */
+        -webkit-background-clip: text;
+        background-clip: text;
+    
+        /* 3. Ustawienie koloru tekstu na przezroczysty */
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        /* Dla większej kompatybilności */
+    
+        /* Dodatkowe style dla lepszego efektu */
+        font-weight: bold;
+}
+
 /* Media queries */
 @media (min-width: 768px) {}
 
 @media (min-width: 1024px) {}
+
+@media (min-width: 1200px) {
+    h1 {
+        font-size: 5rem;
+    }
+}
 
 .empty {
     min-height: 3000px;

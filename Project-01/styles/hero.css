@@ -1,7 +1,5 @@
 .hero-section {
     width: 100vw;
-    height: 100vh;
-    background-color: beige;
     position: relative;
 }
 
@@ -21,18 +19,67 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 4em;
+    padding: 0 2em;
+}
+
+.hero-section-maintance {
+    color: #fff;
+    text-align: center;
 }
 
 .hero-section-title {
     color: var(--accent-color-light);
-    display: flex;
-    gap: 1em;
+    display: inline-block;
     text-transform: uppercase;
+    float: left;
+    text-align: center;
+}
+
+.hero-section-title h2 {
+    float: left;
 }
 
 .hero-section-title svg {
     fill: var(--accent-color-light);
+    float: left;
 }
+
+.hero-section-events {
+    display: flex;
+    flex-direction: row;
+    fill: var(--accent-color-light);
+    gap: 3em;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-section-event p{
+  margin: 0;
+  font-size: large;
+  font-weight: bold;
+}
+
+.hero-section-event {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+    min-width: 260px;
+}
+
+.hero-section-event svg {
+    text-align: center;
+    background-color: var(--accent-color-bg);
+    width: 3em;
+    height: 3em;
+    padding: 4px;
+}
+
+
+
+
 
 
 
