@@ -33,6 +33,31 @@
     .events-item {
         width: 100%;
     }
+
+    /* atractions */
+    .timeline-container::after {
+        left: 31px;
+    }
+
+    .timeline-container-item {
+        width: 100%;
+        padding-left: 100px;
+        padding-right: 25px;
+    }
+
+    .item-right-container {
+        left: 0%
+    }
+
+    .timeline-container-item svg {
+        left: 8px
+    }
+
+    .left-container-arrow {
+        left: -14px;
+        border-right: 15px solid var(--text-color);
+        border-left:none;
+    }
 }
 
 @media (min-width: 768px) {

@@ -4,7 +4,7 @@
     --base-color: #fff;
     --base-variant: #f8f9fc;
     --text-color: #111528;
-    --secondary-color: #a4a5b8;
+    --secondary-text: #a4a5b8;
     --primary-color: #161f32;
     --accent-color: #eb590c;
     --accent-color-light: #fb8f38;
@@ -182,12 +182,12 @@ main {
 }
 
 /* Kontener */
-.container {
+/* .container {
     width: 100%;
     max-width: var(--container-max-width);
     margin: 0 auto;
     padding: 0 var(--space-sm);
-}
+} */
 
 /* Przyciski */
 .btn {
