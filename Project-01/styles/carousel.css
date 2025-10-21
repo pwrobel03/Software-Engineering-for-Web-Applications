@@ -1,0 +1,32 @@
+.carousel-content {
+    width: 100%;
+    display: flex;
+    overflow-x: hidden;
+    margin-bottom: 3em;
+}
+
+.carousel-content::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    animation: spin 25s infinite linear;
+    padding-right: 1em;
+}
+
+.carousel-card {
+    aspect-ratio: 4/3;
+    background-color: coral;
+    flex: 0 0 30vw;
+    object-fit: cover;
+    max-height: 35vh;
+}
+
+@keyframes spin {
+    to {translate: 0;}
+    from {translate: -100%;}
+}
