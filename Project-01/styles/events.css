@@ -45,6 +45,8 @@
     flex-grow: 2;
     flex-basis: 0;
     padding: 10px 30px;
+    background-color: var(--base-variant);
+    filter: drop-shadow(6px 5px 10px var(--primary-color));
 }
 
 .events-item-content h3 {

@@ -1,8 +1,10 @@
 .carousel-content {
     width: 100%;
     display: flex;
+    border-radius: 1em;
     overflow-x: hidden;
     margin-bottom: 3em;
+    filter: drop-shadow(6px 5px 10px var(--primary-color));
 }
 
 .carousel-content::-webkit-scrollbar {
@@ -14,7 +16,7 @@
     align-items: center;
     justify-content: center;
     gap: 1em;
-    animation: spin 25s infinite linear;
+    animation: spin 10s infinite linear;
     padding-right: 1em;
 }
 

@@ -9,6 +9,7 @@
     --accent-color: #eb590c;
     --accent-color-light: #fb8f38;
     --accent-color-bg: rgba(251,143,56,0.1);
+    --footer-color: #070a10;
     /* Typografia */
     --font-primary: 'Inter', 'Arial', sans-serif;
     /* --font-size-sm: 0.875rem;
@@ -139,7 +140,7 @@ button {
 }
 
 #theme-switch svg {
-    fill: var(--primary-color);
+    fill: var(--text-color);
 }
 
 #theme-switch svg:last-child {
@@ -224,6 +225,14 @@ h1 {
     color: #fff;
 }
 
+.text-lg {
+    font-size: var(--font-size-lg);
+}
+
+.text-2xl {
+    font-size: var(--font-size-2xl);
+}
+
 .text-secondary {
     color: var(--secondary-color);
 }
@@ -272,3 +281,17 @@ h1 {
     text-align: center;
     flex-grow: 1;
 }
+
+footer {
+    background-color: var(--footer-color);
+}
+
+.footer-content {
+    max-width: 1560px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 4em;
+    gap: 2em;
+}
+

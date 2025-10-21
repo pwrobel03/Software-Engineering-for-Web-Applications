@@ -80,6 +80,10 @@
     .schedule-container .tab:nth-child(3) {
         border-radius: 0 2em 2em 0;
     }
+
+    .footer-content {
+        flex-direction: row;
+    }
 }
 
 @media (min-width: 1024px) {}

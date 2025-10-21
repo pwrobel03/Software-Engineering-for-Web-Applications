@@ -21,10 +21,22 @@
 
 .text-box {
     padding: 20px 30px;
-    background-color: var(--base-color);
+    background-color: var(--base-variant);
     position: relative;
     border-radius: 6px;
     font-size: 16px;
+    filter: drop-shadow(6px 5px 10px var(--primary-color));
+    transition: 0.5s;
+}
+
+.text-box:hover {
+    transform: scaleX(1.05);
+    transition: 0.5s;
+}
+
+.timeline-container-item:has(.text-box:hover) svg {
+    background-color: var(--accent-color-light);
+    transition: 0.5s;
 }
 
 .item-left-container {
@@ -88,24 +100,26 @@
     height: 0;
     width: 0;
     position: absolute;
-    top: 18px;
+    top: 22px;
     z-index: 1;
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     border-left: 15px solid var(--text-color);
     right: -15px;
+    z-index: 1;
 }
 
 .right-container-arrow {
     height: 0;
     width: 0;
     position: absolute;
-    top: 18px;
+    top: 22px;
     z-index: 1;
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     border-right: 15px solid var(--text-color);
     left: -14px;
+    z-index: 1;
 }
 
 .timeline-container-item li::marker {
