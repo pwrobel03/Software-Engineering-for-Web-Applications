@@ -23,7 +23,7 @@
     background-color: coral;
     flex: 0 0 30vw;
     object-fit: cover;
-    max-height: 35vh;
+    max-height: 420px;
 }
 
 @keyframes spin {

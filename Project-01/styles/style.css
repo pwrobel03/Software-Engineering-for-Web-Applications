@@ -72,6 +72,7 @@
 
 html {
     font-family: Poppins;
+    background-color: var(--base-variant);
 }
 
 body {
@@ -80,10 +81,6 @@ body {
     color: var(--text-color);
     transition: all 0.3s ease-in-out;
     box-sizing: border-box;
-}
-
-section {
-    background-color: var(--base-variant);
 }
 
 p {
@@ -114,7 +111,7 @@ button {
 }
 
 .cta-button:hover {
-    scale: 1.2;
+    scale: 1.05;
 }
 
 .cta-accent-button {
