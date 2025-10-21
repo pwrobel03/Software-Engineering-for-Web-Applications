@@ -250,6 +250,10 @@ h1 {
     font-size: var(--font-size-lg);
 }
 
+.section-header p {
+    text-align: center;
+}
+
 .section h2 {
     font-size: 4rem;
     float: left;
