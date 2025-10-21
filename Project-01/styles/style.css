@@ -295,3 +295,18 @@ footer {
     gap: 2em;
 }
 
+.footer-icon {
+    color: #fff;
+    font-size: 24px;
+    padding: 12px;
+    border-radius: 12px;
+    margin-right: 12px;
+}
+
+.footer-icon:hover {
+    background-color: var(--accent-color-light);
+}
+
+.icon-link {
+    text-decoration: none;
+}
