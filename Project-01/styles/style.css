@@ -74,6 +74,7 @@
 html {
     font-family: Poppins;
     background-color: var(--base-variant);
+    scroll-behavior: smooth;
 }
 
 body {
@@ -125,18 +126,10 @@ button {
 }
 
 #theme-switch {
-    height: 50px;
-    width: 50px;
     padding: 0;
     border-radius: 50%;
     background-color: var(--base-variant);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 20;
+    margin-left: 12px;
 }
 
 #theme-switch svg {
@@ -280,6 +273,58 @@ h1 {
     display: block;
     text-align: center;
     flex-grow: 1;
+}
+
+nav {
+    background-color: var(--base-variant);
+    position: sticky;
+    padding: 2em;
+    width: 100vw;
+    top: 0px;
+    z-index: 20;
+    box-sizing: border-box;
+    border-bottom: 2px solid var(--secondary-text);
+}
+
+.navbar {
+    max-width: 1560px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-color);
+    fill: var(--text-color);
+}
+
+.navbar-logo p {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.navbar-content {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-content a {
+    text-decoration: none;
+    color: inherit;
+    margin-left: 12px;
+    font-size: var(--font-size-lg);
+}
+
+/* Opcjonalnie: Zerowanie domyślnego stylu po kliknięciu/odwiedzeniu */
+.navbar a:visited,
+.navbar a:active {
+    color: inherit;
 }
 
 footer {
