@@ -1,14 +1,16 @@
 .hero-section {
     width: 100vw;
     position: relative;
+    background-size: cover;
+    min-height: 100vh;
 }
 
 .hero-section img {
     object-fit: cover;
     position: absolute;
-    width: 100vw;
-    height: 100vh;
     filter: brightness(0.2);
+    height: 100%;
+    width: 100%;
 }
 
 .hero-content {
@@ -34,6 +36,7 @@
     text-transform: uppercase;
     float: left;
     text-align: center;
+    margin-top: 2em;
 }
 
 .hero-section-title h2 {
@@ -71,10 +74,15 @@
 
 .hero-section-event svg {
     text-align: center;
-    background-color: var(--accent-color-bg);
     width: 3em;
     height: 3em;
     padding: 4px;
+}
+
+.hero-section-event {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 2em;
+    padding: 0.5em;
 }
 
 

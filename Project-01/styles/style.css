@@ -218,6 +218,10 @@ h1 {
     color: #fff;
 }
 
+.text-accent {
+    color: var(--accent-color-light);
+}
+
 .text-lg {
     font-size: var(--font-size-lg);
 }
@@ -325,6 +329,68 @@ nav {
 .navbar a:visited,
 .navbar a:active {
     color: inherit;
+}
+
+.hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    fill: var(--text-color);
+    color: var(--text-color);
+    padding: 0;
+}
+
+/* W widoku mobilnym: ikona musi być widoczna */
+.hamburger-menu svg {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: block;
+        z-index: 10;
+    }
+    
+    .navbar-content {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        background-color: var(--base-variant);
+        z-index: 100;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        top: 60px;
+        height: calc(100vh - 60px);
+    }
+
+    .navbar-content.open {
+        transform: translateX(0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar-content a,
+    .navbar-content #theme-switch {
+        width: 80%;
+        text-align: center;
+        padding: 15px 0;
+        margin-left: 0;
+        font-size: var(--font-size-xl);
+        display: flex;
+        justify-content: center;
+    }
+
+    .navbar {
+        justify-content: space-between;
+        padding: 0;
+    }
 }
 
 footer {
