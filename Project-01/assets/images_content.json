@@ -7,6 +7,78 @@
     },
     {
         "id": 2,
+        "src": "/Project-01/assets/images/gallery/depositphotos_229587742-stock-photo-group-of-happy-students-reading.jpg",
+        "alt": "Uśmiechnięte dziecko",
+        "tags": ["portret", "ludzie", "dzieci", "kolor"]
+    },
+    {
+        "id": 3,
+        "src": "/Project-01/assets/images/gallery/group-students-leaned-desk-full-600nw-2449569173.jpg.webp",
+        "alt": "Panorma nocnego miasta",
+        "tags": ["krajobraz", "architektura", "miasto", "noc"]
+    },
+    {
+        "id": 4,
+        "src": "/Project-01/assets/images/gallery/grupa-mlodych-ludzi-biznesu-omawiajacych-dokumenty-podczas-spotkania-w-biurze-2.jpg",
+        "alt": "Mglisty las",
+        "tags": ["natura", "las", "mgła", "zieleń"]
+    },
+    {
+        "id": 5,
+        "src": "/Project-01/assets/images/gallery/grupa-mlodych-ludzi-biznesu-omawiajacych-dokumenty-podczas-spotkania-w-biurze.jpg",
+        "alt": "Górski szczyt o wschodzie słońca",
+        "tags": ["atmosfera", "miejsce", "góry", "wschód"]
+    },
+    {
+        "id": 6,
+        "src": "/Project-01/assets/images/gallery/kids-enjoying-reading-stockcake.jpg",
+        "alt": "Uśmiechnięte dziecko",
+        "tags": ["portret", "ludzie", "dzieci", "kolor"]
+    },
+    {
+        "id": 3,
+        "src": "/Project-01/assets/images/gallery/ludzie-czytajacy-razem-widok-z-boku.jpg",
+        "alt": "Panorma nocnego miasta",
+        "tags": ["krajobraz", "architektura", "miasto", "noc"]
+    },
+    {
+        "id": 4,
+        "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
+        "alt": "Mglisty las",
+        "tags": ["natura", "las", "mgła", "zieleń"]
+    },
+    {
+        "id": 1,
+        "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
+        "alt": "Górski szczyt o wschodzie słońca",
+        "tags": ["atmosfera", "miejsce", "góry", "wschód"]
+    },
+    {
+        "id": 2,
+        "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
+        "alt": "Uśmiechnięte dziecko",
+        "tags": ["portret", "ludzie", "dzieci", "kolor"]
+    },
+    {
+        "id": 3,
+        "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
+        "alt": "Panorma nocnego miasta",
+        "tags": ["krajobraz", "architektura", "miasto", "noc"]
+    },
+    {
+        "id": 4,
+        "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
+        "alt": "Mglisty las",
+        "tags": ["natura", "las", "mgła", "zieleń"]
+    },
+    {
+        "id": 1,
+        "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
+        "alt": "Górski szczyt o wschodzie słońca",
+        "tags": ["atmosfera", "miejsce", "góry", "wschód"]
+    },
+    {
+        "id": 2,
         "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
         "alt": "Uśmiechnięte dziecko",
         "tags": ["portret", "ludzie", "dzieci", "kolor"]

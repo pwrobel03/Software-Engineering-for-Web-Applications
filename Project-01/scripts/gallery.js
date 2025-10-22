@@ -1,6 +1,7 @@
 const galleryContainer = document.getElementById("gallery-container");
 const filterButtonsContainer = document.getElementById("filter-buttons");
 const loadingSpinner = document.getElementById("loading-spinner");
+
 let allImages = [];
 
 function toggleLoader(isVisible) {
@@ -30,29 +31,7 @@ async function fetchImages() {
     }
 }
 
-function renderGallery(imagesToDisplay) {
-    galleryContainer.innerHTML = "";
-
-    if (imagesToDisplay.length === 0) {
-        galleryContainer.innerHTML =
-            "<p>Brak zdjęć pasujących do tego tagu.</p>";
-        return;
-    }
-
-    imagesToDisplay.forEach((image) => {
-        const imgElement = document.createElement("img");
-        imgElement.src = image.src;
-        imgElement.alt = image.alt;
-
-        const galleryItem = document.createElement("div");
-        galleryItem.classList.add("gallery-item");
-        galleryItem.appendChild(imgElement);
-
-        galleryContainer.appendChild(galleryItem);
-    });
-}
-
-// 2. GENEROWANIE PRZYCISKÓW FILTROWANIA
+// generate filter buttons
 function generateFilterButtons(images) {
     // collecting tags from json file
     const allTags = images.flatMap((image) => image.tags);
@@ -99,6 +78,7 @@ function handleFilterClick(event) {
 // Render photos
 function renderGallery(imagesToDisplay) {
     galleryContainer.innerHTML = "";
+    console.log("render");
 
     if (imagesToDisplay.length === 0) {
         galleryContainer.innerHTML =
@@ -106,17 +86,36 @@ function renderGallery(imagesToDisplay) {
         return;
     }
 
+    const fragment = document.createDocumentFragment();
+
     imagesToDisplay.forEach((image) => {
+        const galleryItem = document.createElement("div");
+        galleryItem.classList.add("gallery-item");
+
         const imgElement = document.createElement("img");
         imgElement.src = image.src;
         imgElement.alt = image.alt;
 
-        const galleryItem = document.createElement("div");
-        galleryItem.classList.add("gallery-item");
-        galleryItem.appendChild(imgElement);
+        const overlay = document.createElement("div");
+        overlay.classList.add("gallery-overlay");
 
-        galleryContainer.appendChild(galleryItem);
+        const tagsHtml = image.tags
+            .map((tag) => `<span class="tag-item">${tag}</span>`)
+            .join("");
+        overlay.innerHTML = `<div class="tags-list">${tagsHtml}</div>`;
+
+        const altText = document.createElement("p");
+        altText.classList.add("alt-text");
+        altText.textContent = image.alt;
+        overlay.appendChild(altText);
+
+        galleryItem.appendChild(imgElement);
+        galleryItem.appendChild(overlay);
+        console.log(galleryItem);
+
+        fragment.appendChild(galleryItem);
     });
+    galleryContainer.appendChild(fragment);
 }
 
 fetchImages();
