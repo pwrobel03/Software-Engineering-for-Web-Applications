@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
+        "alt": "Górski szczyt o wschodzie słońca",
+        "tags": ["atmosfera", "miejsce", "góry", "wschód"]
+    },
+    {
+        "id": 2,
+        "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
+        "alt": "Uśmiechnięte dziecko",
+        "tags": ["portret", "ludzie", "dzieci", "kolor"]
+    },
+    {
+        "id": 3,
+        "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
+        "alt": "Panorma nocnego miasta",
+        "tags": ["krajobraz", "architektura", "miasto", "noc"]
+    },
+    {
+        "id": 4,
+        "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
+        "alt": "Mglisty las",
+        "tags": ["natura", "las", "mgła", "zieleń"]
+    }
+]

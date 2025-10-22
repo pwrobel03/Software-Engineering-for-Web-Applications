@@ -278,7 +278,7 @@ h1 {
 nav {
     background-color: var(--base-variant);
     position: sticky;
-    padding: 2em;
+    padding: 1em 2em;
     width: 100vw;
     top: 0px;
     z-index: 20;
