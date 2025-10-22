@@ -1,4 +1,4 @@
-.gallery-section {
+.gallery {
     min-height: 100vh;
 }
 
@@ -118,4 +118,16 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.video-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.video-wrapper video,
+.video-wrapper iframe {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 16/9;
 }
