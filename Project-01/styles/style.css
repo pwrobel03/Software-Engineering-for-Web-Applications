@@ -395,6 +395,7 @@ nav {
 
 footer {
     background-color: var(--footer-color);
+    padding: 4em;
 }
 
 .footer-content {
@@ -402,8 +403,8 @@ footer {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    padding: 4em;
     gap: 2em;
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .footer-icon {
@@ -420,4 +421,8 @@ footer {
 
 .icon-link {
     text-decoration: none;
+}
+
+.footer-copyrights {
+    text-align: center;
 }
