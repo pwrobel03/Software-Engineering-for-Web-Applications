@@ -6,7 +6,7 @@
         <title>Night with magic!</title>
         <link rel="stylesheet" href="../styles/style.css" />
         <link rel="stylesheet" href="../styles/media-queries.css" />
-        <link rel="stylesheet" href="../styles/gallery.css" />
+        <link rel="stylesheet" href="../styles/form.css" />
 
         <!-- icons -->
         <link
@@ -15,7 +15,6 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
-        <script src="../scripts/gallery.js" defer></script>
         <script src="../scripts/hamburger-menu.js" defer></script>
         <script src="../scripts/darkmode.js" defer></script>
     </head>
@@ -88,31 +87,72 @@
 
         <!-- main -->
         <main class="gallery">
-            <section class="section gallery-section">
-                <div class="filter-buttons-container" id="filter-buttons">
-                    <button class="filter-btn active" data-tag="wszystkie">
-                        Wszystkie
-                    </button>
-                </div>
-
-                <div id="loading-spinner" class="loader">
-                    Ładowanie zdjęć...
-                </div>
-
-                <div class="gallery-container" id="gallery-container"></div>
-            </section>
-            <section class="section video-section">
-                <div></div>
-                <div class="video-container">
-                    <div class="video-wrapper">
-                        <video controls>
-                            <source
-                                src="/Project-01/assets/promo_video.mp4"
-                                type="video/mp4"
-                            />
-                            Twoja przeglądarka nie obsługuje elementu wideo.
-                        </video>
+            <section class="section form-section">
+                <div class="form-container">
+                    <div class="label-form">
+                        <h2>
+                            Zapisz się
+                            <span class="gradient-text">na maraton</span>
+                        </h2>
                     </div>
+                    <!-- <h2>Skontaktuj się z nami</h2>
+                    <p>
+                        Wypełnij formularz, a skontaktujemy się z Tobą
+                        najszybciej, jak to możliwe.
+                    </p> -->
+
+                    <form class="contact-form">
+                        <!-- FLEX ROW: Na dużych ekranach dwa pola obok siebie -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Imię i Nazwisko</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    placeholder="Jan Kowalski"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Adres E-mail</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="jan.kowalski@email.com"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Pole na całą szerokość -->
+                        <div class="form-group">
+                            <label for="subject">Temat wiadomości</label>
+                            <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                placeholder="Pytanie o ofertę"
+                                required
+                            />
+                        </div>
+
+                        <!-- Duże pole tekstowe -->
+                        <div class="form-group">
+                            <label for="message">Treść wiadomości</label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                rows="5"
+                                placeholder="Wpisz swoją wiadomość tutaj..."
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" class="cta-button submit-btn">
+                            Zapisz się
+                        </button>
+                    </form>
                 </div>
             </section>
         </main>

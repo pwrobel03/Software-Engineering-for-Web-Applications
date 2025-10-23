@@ -1,0 +1,105 @@
+.form-container {
+    /* Ograniczenie maksymalnej szerokości formularza */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: var(--base-variant);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-bottom: 4em;
+    border-radius: 2em;
+}
+
+.contact-form {
+    padding: 0 4em;
+}
+
+.form-container h2 {
+    text-align: center;
+    padding: 1em 0;
+}
+
+.form-container p {
+    text-align: center;
+    margin-bottom: 4em;
+    color: var(--secondary-text);
+}
+
+/* --- 2. Podstawowe Style Pól --- */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 800;
+    color: var(--text-color);
+    font-size: var(--font-size-lg);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--base-variant);
+    color: var(--text-color);
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+    /* Kluczowe, by padding nie zwiększał szerokości */
+    transition: border-color 0.2s;
+    background-color: transparent;
+    font-size: var(--font-size-base);
+}
+
+.form-group input {
+    border-bottom-color: var(--accent-color-light);
+}
+
+.form-group textarea {
+    width: 100%;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--accent-color-light);
+    outline: none;
+}
+
+.submit-btn {
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.label-form {
+    width: 100%;
+    padding: 0 2em;
+    box-sizing: border-box;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-row .form-group {
+    flex: 1 1 0;
+    margin-bottom: 0;
+}
+
+
+/* --- Mobile view --- */
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-row .form-group {
+        margin-bottom: 20px;
+    }
+}
