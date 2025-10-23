@@ -17,6 +17,10 @@
     .section {
         padding: 4em 1em;
     }
+
+    .gallery-container {
+        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    }
 }
 
 
