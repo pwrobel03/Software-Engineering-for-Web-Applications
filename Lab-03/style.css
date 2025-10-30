@@ -1,0 +1,93 @@
+/* Stylowanie listy ćwiczeń */
+.exercise-section {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    max-width: 1920px;
+}
+
+.exercise-list {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.exercise-list a {
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px 0;
+}
+
+.exercise-list a:hover {
+    text-decoration: underline;
+}
+
+.exercise-list li {
+    font-weight: bold;
+    width: auto;
+}
+  
+/* Ćwiczenie 1 - Artykuł */    
+.watch-title {
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    text-align: center;
+}
+    
+.time-display {
+    font-size: 4em;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+    justify-content: center;
+}
+
+.time-controls {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+    margin-bottom: 2em;
+}
+
+.time-controls>div {
+    margin: 0;
+}
+
+.time-controls>.back-link {
+    margin: 0;
+    padding: 1em 3em;
+    background-color: darkseagreen;
+}
+
+.time-controls>.back-link:hover {
+    background-color: rgb(103, 148, 103);
+}
+
+/* Stylowanie linków nawigacyjnych */
+.nav-link {
+    cursor: pointer;
+}
+
+.back-link {
+    display: inline-block;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 1em 6em;
+    background-color: cornflowerblue;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-link:hover {
+    background-color: rgb(69, 112, 190);
+}

@@ -13,9 +13,9 @@
     padding: 0 4em;
 }
 
-.form-container h2 {
+.form-section h2 {
     text-align: center;
-    padding: 1em 0;
+    padding-bottom: 1em;
 }
 
 .form-container p {
