@@ -65,11 +65,23 @@
 .time-controls>.back-link {
     margin: 0;
     padding: 1em 3em;
+    cursor: pointer;
+}
+
+.time-controls>.back-link:nth-child(1) {
+    background-color: darkred;
+}
+
+.time-controls>.back-link:nth-child(2) {
     background-color: darkseagreen;
 }
 
+.time-controls>.back-link:nth-child(3) {
+    background-color: dimgrey;
+}
+
 .time-controls>.back-link:hover {
-    background-color: rgb(103, 148, 103);
+    transform: scale(1.2);
 }
 
 /* Stylowanie linków nawigacyjnych */
