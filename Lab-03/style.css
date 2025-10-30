@@ -84,6 +84,56 @@
     transform: scale(1.2);
 }
 
+/* Ćwiczenie 2 - Generator haseł */
+.generator-title {
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.generator-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: center;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.control-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.control-group.checkbox {
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+input[type="number"] {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.password-button {
+    padding: 10px;
+    background-color: darkseagreen;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.password-button:hover {
+    background-color: rgb(103, 148, 103);
+}
+
 /* Stylowanie linków nawigacyjnych */
 .nav-link {
     cursor: pointer;

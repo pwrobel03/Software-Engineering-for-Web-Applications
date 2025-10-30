@@ -7,52 +7,136 @@
         <link rel="stylesheet" href="../style.css" />
     </head>
     <body>
-        <main id="exercise2" class="exercise-section table-container">
-            <h1>Lista produktów</h1>
-            <table class="product-table">
-                <thead>
-                    <tr>
-                        <th>nr</th>
-                        <th>nazwa produktu</th>
-                        <th>cena produktu</th>
-                        <th>ilość sztuk</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Casio G-Shock DW-5600E-1V</td>
-                        <td>380 zł</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Timex Weekender Chronograph</td>
-                        <td>480 zł</td>
-                        <td>12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Casio Edifice EFV-C100D-2AVEF</td>
-                        <td>540 zł</td>
-                        <td>8</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Citizen BI1044-81E</td>
-                        <td>1 050 zł</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Timex Marlin Automatic</td>
-                        <td>950 zł</td>
-                        <td>7</td>
-                    </tr>
-                </tbody>
-            </table>
+        <main id="exercise1" class="exercise-section">
+            <div class="generator">
+                <h1 class="generator-title">Generator haseł</h1>
+                <div class="generator-container">
+                    <div class="control-group">
+                        <label for="min-length">Minimalna długość hasła:</label>
+                        <input
+                            type="number"
+                            id="min-length"
+                            value="8"
+                            min="1"
+                        />
+                    </div>
+                    <div class="control-group">
+                        <label for="max-length"
+                            >Maksymalna długość hasła:</label
+                        >
+                        <input
+                            type="number"
+                            id="max-length"
+                            value="16"
+                            min="1"
+                        />
+                    </div>
 
+                    <div class="control-group checkbox">
+                        <input type="checkbox" id="include-uppercase" checked />
+                        <label for="include-uppercase"
+                            >Czy hasło ma zawierać wielkie litery?</label
+                        >
+                    </div>
+                    <div class="control-group checkbox">
+                        <input type="checkbox" id="include-special" checked />
+                        <label for="include-special"
+                            >Czy hasło ma zawierać znaki specjalne?</label
+                        >
+                    </div>
+                    <button id="generate-button" class="password-button">
+                        Wygeneruj hasło
+                    </button>
+                </div>
+            </div>
             <a href="../" class="back-link">Powrót do listy ćwiczeń</a>
         </main>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // 1. Definicja puli znaków
+                const LOWERCASE_CHARS = "abcdefghijklmnopqrstuvwxyz";
+                const UPPERCASE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                const NUMBERS = "0123456789";
+                const SPECIAL_CHARS = "!@#$%^&*()_-+=<>?/{}[]|";
+
+                // 2. Pobieranie elementów DOM
+                const minLengthInput = document.getElementById("min-length");
+                const maxLengthInput = document.getElementById("max-length");
+                const includeUppercaseCheckbox =
+                    document.getElementById("include-uppercase");
+                const includeSpecialCheckbox =
+                    document.getElementById("include-special");
+                const generateButton =
+                    document.getElementById("generate-button");
+
+                // 3. Funkcja do generowania hasła
+                function generatePassword(
+                    minLength,
+                    maxLength,
+                    includeUppercase,
+                    includeSpecial
+                ) {
+                    // Walidacja długości
+                    if (
+                        minLength <= 0 ||
+                        maxLength <= 0 ||
+                        minLength > maxLength
+                    ) {
+                        return "Błąd: Sprawdź minimalną i maksymalną długość.";
+                    }
+
+                    // Określenie puli dostępnych znaków
+                    let availableChars = LOWERCASE_CHARS + NUMBERS;
+
+                    if (includeUppercase) {
+                        availableChars += UPPERCASE_CHARS;
+                    }
+
+                    if (includeSpecial) {
+                        availableChars += SPECIAL_CHARS;
+                    }
+
+                    if (availableChars.length === 0) {
+                        return "Błąd: Wybierz co najmniej jedną opcję (choć małe litery i cyfry są domyślne).";
+                    }
+
+                    // Losowanie długości hasła
+                    const length =
+                        Math.floor(
+                            Math.random() * (maxLength - minLength + 1)
+                        ) + minLength;
+
+                    let password = "";
+
+                    // Generowanie hasła
+                    for (let i = 0; i < length; i++) {
+                        const randomIndex = Math.floor(
+                            Math.random() * availableChars.length
+                        );
+                        password += availableChars[randomIndex];
+                    }
+                    return password;
+                }
+
+                // 4. Obsługa zdarzenia kliknięcia
+                generateButton.addEventListener("click", () => {
+                    // Pobierz aktualne wartości
+                    const minLength = parseInt(minLengthInput.value);
+                    const maxLength = parseInt(maxLengthInput.value);
+                    const includeUppercase = includeUppercaseCheckbox.checked;
+                    const includeSpecial = includeSpecialCheckbox.checked;
+
+                    // Wygeneruj i wyświetl hasło
+                    const newPassword = generatePassword(
+                        minLength,
+                        maxLength,
+                        includeUppercase,
+                        includeSpecial
+                    );
+
+                    alert(newPassword);
+                });
+            });
+        </script>
     </body>
 </html>
