@@ -7,25 +7,161 @@
         <link rel="stylesheet" href="../style.css" />
     </head>
     <body>
-        <div id="exercise3" class="exercise-section squares-container">
-            <h1>Kolorowe kwadraty</h1>
-
-            <div class="squares-row">
-                <div class="square square-1"></div>
-                <div class="square square-2"></div>
+        <main id="exercise1" class="exercise-section">
+            <div class="data-container">
+                <h1 class="data-title">Dane z API</h1>
+                <div class="data-content">
+                    <div class="data-controls">
+                        <div>
+                            <label for="filter-input"
+                                >Filtruj (Tytuł/Opis):</label
+                            >
+                            <input
+                                type="text"
+                                id="filter-input"
+                                placeholder="Wpisz frazę do wyszukania"
+                            />
+                        </div>
+                        <div>
+                            <label for="sort-select">Sortowanie:</label>
+                            <select id="sort-select">
+                                <option value="original">
+                                    Oryginalna kolejność
+                                </option>
+                                <option value="title-asc">
+                                    Tytuł (rosnąco)
+                                </option>
+                                <option value="title-desc">
+                                    Tytuł (malejąco)
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="loading">Ładowanie danych...</div>
+                    <table id="products-table" style="display: none">
+                        <thead>
+                            <tr>
+                                <th>Zdjęcie</th>
+                                <th>Tytuł</th>
+                                <th>Opis</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
-
-            <div class="squares-row">
-                <div class="square square-3"></div>
-                <div class="square square-4"></div>
-                <img
-                    src="../images/comedy-squirel-stop.jpg"
-                    alt="Obraz"
-                    class="square-image square square-5"
-                />
-            </div>
-
             <a href="../" class="back-link">Powrót do listy ćwiczeń</a>
-        </div>
+        </main>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const URL = "https://dummyjson.com/products";
+                const tableBody = document.querySelector(
+                    "#products-table tbody"
+                );
+                const loadingIndicator = document.getElementById("loading");
+                const tableElement = document.getElementById("products-table");
+
+                const filterInput = document.getElementById("filter-input");
+                const sortSelect = document.getElementById("sort-select");
+
+                // Zmienna do przechowywania oryginalnych i wszystkich danych
+                let allProducts = [];
+                let displayedProducts = [];
+
+                function renderTable(products) {
+                    tableBody.innerHTML = ""; // Czyści obecne wiersze
+                    if (products.length === 0) {
+                        tableBody.innerHTML =
+                            '<tr><td colspan="3">Brak produktów pasujących do kryteriów.</td></tr>';
+                        return;
+                    }
+
+                    products.forEach((product) => {
+                        const row = tableBody.insertRow();
+
+                        // Kolumna 1: Zdjęcie (thumbnail)
+                        const imageCell = row.insertCell();
+                        const image = document.createElement("img");
+                        image.src = product.thumbnail;
+                        image.alt = product.title;
+                        image.className = "product-image";
+                        imageCell.appendChild(image);
+
+                        // Kolumna 2: Tytuł
+                        const titleCell = row.insertCell();
+                        titleCell.textContent = product.title;
+
+                        // Kolumna 3: Opis
+                        const descriptionCell = row.insertCell();
+                        descriptionCell.textContent = product.description;
+                    });
+                }
+
+                //  Funkcja główna do filtrowania i sortowania.
+                function applyFiltersAndSort() {
+                    const filterText = filterInput.value.toLowerCase();
+                    let filteredProducts = allProducts.filter((product) => {
+                        const titleMatch = product.title
+                            .toLowerCase()
+                            .includes(filterText);
+                        const descriptionMatch = product.description
+                            .toLowerCase()
+                            .includes(filterText);
+                        return titleMatch || descriptionMatch;
+                    });
+
+                    const sortValue = sortSelect.value;
+                    if (sortValue !== "original") {
+                        filteredProducts.sort((a, b) => {
+                            const titleA = a.title.toLowerCase();
+                            const titleB = b.title.toLowerCase();
+
+                            if (titleA < titleB) {
+                                return sortValue === "title-asc" ? -1 : 1;
+                            }
+                            if (titleA > titleB) {
+                                return sortValue === "title-asc" ? 1 : -1;
+                            }
+                            return 0;
+                        });
+                    }
+                    displayedProducts = filteredProducts;
+                    renderTable(displayedProducts);
+                }
+
+                // Pobieranie danych
+                async function fetchProducts() {
+                    try {
+                        const response = await fetch(URL);
+                        if (!response.ok) {
+                            throw new Error(`Błąd sieci: ${response.status}`);
+                        }
+
+                        const data = await response.json();
+                        allProducts = data.products.slice(0, 30);
+                        displayedProducts = allProducts;
+
+                        // Wyświetlenie tabeli i ukrycie wskaźnika ładowania
+                        loadingIndicator.style.display = "none";
+                        tableElement.style.display = "table";
+
+                        // Renderowanie początkowe
+                        renderTable(displayedProducts);
+                    } catch (error) {
+                        console.error(
+                            "Wystąpił błąd podczas pobierania danych:",
+                            error
+                        );
+                        loadingIndicator.textContent = `Wystąpił błąd: ${error.message}.`;
+                        tableElement.style.display = "none";
+                    }
+                }
+
+                // Obsługa zdarzeń
+                filterInput.addEventListener("input", applyFiltersAndSort);
+                sortSelect.addEventListener("change", applyFiltersAndSort);
+                fetchProducts();
+            });
+        </script>
     </body>
 </html>
