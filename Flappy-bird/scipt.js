@@ -1,4 +1,3 @@
-// TODO: LocalStorage powinien przechowywać najlepsze wyniki
 // TODO: pobicie rekordu skutkuje pojawieniem się animacji przed ekranem podsumowującym
 
 // FIXME: Przeszkoda są tworzone przy uzyciu assetów losowa przerwa miedzy elementami
@@ -33,6 +32,7 @@ class FlappyGame {
         ];
         this.pipeImg = images.pipeImg;
         this.backgroundImage = images.backgroundImage;
+        this.titleScreenImg = images.titleScreenImg;
         this.rotation = 0;
 
         // logical bird image changes
@@ -321,14 +321,31 @@ class FlappyGame {
 
     renderMenu() {
         this.clearBoard();
-        this.context.fillStyle = "black";
-        this.context.font = "30px Arial";
-        this.context.textAlign = "center";
-        this.context.fillText(
-            "Press Space!",
-            BOARD_WIDTH / 2,
-            BOARD_HEIGHT / 3
-        );
+
+        if (this.titleScreenImg) {
+            const imgWidth = BOARD_WIDTH - 100;
+            const imgHeight = BOARD_HEIGHT / 2;
+
+            const drawX = BOARD_WIDTH / 2 - imgWidth / 2;
+            const drawY = (BOARD_HEIGHT - this.BASE_HEIGHT) / 4;
+
+            this.context.drawImage(
+                this.titleScreenImg,
+                drawX,
+                drawY,
+                imgWidth,
+                imgHeight
+            );
+        } else {
+            this.context.fillStyle = "white";
+            this.context.font = "30px Arial";
+            this.context.textAlign = "center";
+            this.context.fillText(
+                "Press Space!",
+                BOARD_WIDTH / 2,
+                BOARD_HEIGHT / 3
+            );
+        }
     }
 
     renderGameOver() {
@@ -535,12 +552,28 @@ const initializeImage = async () => {
         loadImage("./assets/Images/pipe-green.png"),
         loadImage("./assets/Images/base.png"),
         loadImage("./assets/Images/background-day.png"),
+        loadImage("./assets/UI/message.png"),
     ];
 
-    const [birdUp, birdMid, birdDown, pipeImg, base, backgroundImage] =
-        await Promise.all(imagePromises);
+    const [
+        birdUp,
+        birdMid,
+        birdDown,
+        pipeImg,
+        base,
+        backgroundImage,
+        titleScreenImg,
+    ] = await Promise.all(imagePromises);
 
-    return { birdUp, birdMid, birdDown, pipeImg, base, backgroundImage };
+    return {
+        birdUp,
+        birdMid,
+        birdDown,
+        pipeImg,
+        base,
+        backgroundImage,
+        titleScreenImg,
+    };
 };
 
 // --- run ---
