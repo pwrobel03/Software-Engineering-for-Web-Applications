@@ -1,4 +1,3 @@
-// TODO: pozycja ptaka powinna być skeirowana.w górę lub w dół podczas opadania/wznoszenia
 // TODO: być moe base równie powinien się przemieszczać
 // TODO: LocalStorage powinien przechowywać najlepsze wyniki
 // TODO: przy kontakcie z przeszkodą powinna załączać się animacja
@@ -35,6 +34,7 @@ class FlappyGame {
         ];
         this.pipeImg = images.pipeImg;
         this.backgroundImage = images.backgroundImage;
+        this.rotation = 0;
 
         // logical bird image changes
         this.frameIndex = 0;
@@ -201,12 +201,17 @@ class FlappyGame {
         }
     }
 
-    renderGame() {
-        this.clearBoard();
-
+    drawBird() {
         // bird position
         this.velocityY += this.gravity;
         this.bird.y = Math.max(this.bird.y + this.velocityY, 0);
+
+        // bird rotation
+        if (this.velocityY > 0) {
+            this.rotation = Math.min(this.rotation + 0.05, Math.PI / 2);
+        } else if (this.velocityY < 0 && this.rotation < 0) {
+            this.rotation = -Math.PI / 4;
+        }
 
         // bird animation
         this.frameCounter++;
@@ -217,13 +222,24 @@ class FlappyGame {
         }
 
         // draw bird
+        const centerX = this.bird.x + this.bird.width / 2;
+        const centerY = this.bird.y + this.bird.height / 2;
+        this.context.save();
+        this.context.translate(centerX, centerY);
+        this.context.rotate(this.rotation);
         this.context.drawImage(
             this.birdFrames[this.frameIndex],
-            this.bird.x,
-            this.bird.y,
+            -this.bird.width / 2,
+            -this.bird.height / 2,
             this.bird.width,
             this.bird.height
         );
+        this.context.restore();
+    }
+
+    renderGame() {
+        this.clearBoard();
+        this.drawBird();
 
         // floor collide
         if (this.bird.y + this.bird.height > BOARD_HEIGHT - this.BASE_HEIGHT) {
@@ -295,6 +311,7 @@ class FlappyGame {
         this.velocityY = 0;
         this.score = 0;
         this.pipeArray = [];
+        this.rotation = 0;
 
         if (this.pipeIntervalId) {
             clearInterval(this.pipeIntervalId);
@@ -334,6 +351,7 @@ class FlappyGame {
                 this.currentState = GAME_STATE.MENU;
             } else if (this.currentState === GAME_STATE.PLAY) {
                 this.velocityY = -this.jump;
+                this.rotation = -Math.PI / 4;
             }
         }
     }
