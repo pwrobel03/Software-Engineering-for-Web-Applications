@@ -15,9 +15,34 @@ const GAME_STATE = {
     GAME_OVER: "gameOver",
 };
 
+// score display
+const loadScoreDigits = async () => {
+    const digitImages = {};
+    const promises = [];
+
+    for (let i = 0; i <= 9; i++) {
+        const src = `./assets/UI/Numbers/${i}.png`;
+
+        const promise = new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => {
+                digitImages[i] = img;
+                resolve();
+            };
+            img.onerror = (e) =>
+                reject(new Error(`Failed to load digit: ${src}`));
+            img.src = src;
+        });
+        promises.push(promise);
+    }
+
+    await Promise.all(promises);
+    return digitImages;
+};
+
 // --- game define ---
 class FlappyGame {
-    constructor(context, images, board) {
+    constructor(context, images, board, scoreDigits) {
         // canvas
         this.context = context;
         this.board = board;
@@ -79,6 +104,11 @@ class FlappyGame {
         this.highScores = this.loadHighScores();
         this.isNewRecord = false;
         this.scoreSaved = false;
+
+        // score display
+        this.scoreDigits = scoreDigits;
+        this.DIGIT_WIDTH = 36;
+        this.DIGIT_HEIGHT = 48;
 
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
         // game loop
@@ -272,6 +302,36 @@ class FlappyGame {
         this.context.restore();
     }
 
+    drawScore() {
+        if (!this.scoreDigits) {
+            this.context.fillStyle = "white";
+            this.context.font = "48px Arial";
+            this.context.textAlign = "right";
+            this.context.fillText(Math.floor(this.score), BOARD_WIDTH - 20, 60);
+            return;
+        }
+
+        const scoreString = Math.floor(this.score).toString();
+        const totalWidth = scoreString.length * (this.DIGIT_WIDTH + 2);
+        let drawX = BOARD_WIDTH - totalWidth - 20;
+        for (let i = 0; i < scoreString.length; i++) {
+            const digitChar = scoreString[i];
+            const digit = parseInt(digitChar);
+            const digitImage = this.scoreDigits[digit];
+            if (digitImage) {
+                this.context.drawImage(
+                    digitImage,
+                    drawX,
+                    20, // y margin
+                    this.DIGIT_WIDTH,
+                    this.DIGIT_HEIGHT
+                );
+            }
+
+            drawX += this.DIGIT_WIDTH + 2;
+        }
+    }
+
     renderGame() {
         this.clearBoard();
         this.drawBird();
@@ -313,10 +373,11 @@ class FlappyGame {
         }
 
         // draw score
-        this.context.fillStyle = "white";
-        this.context.font = "48px Arial";
-        this.context.textAlign = "right";
-        this.context.fillText(Math.floor(this.score), BOARD_WIDTH - 20, 60);
+        this.drawScore();
+        // this.context.fillStyle = "white";
+        // this.context.font = "48px Arial";
+        // this.context.textAlign = "right";
+        // this.context.fillText(Math.floor(this.score), BOARD_WIDTH - 20, 60);
     }
 
     renderMenu() {
@@ -439,10 +500,7 @@ class FlappyGame {
         this.drawBird();
 
         // draw score
-        this.context.fillStyle = "white";
-        this.context.font = "48px Arial";
-        this.context.textAlign = "right";
-        this.context.fillText(Math.floor(this.score), BOARD_WIDTH - 20, 60);
+        this.drawScore();
     }
 
     drawFlashEffect() {
@@ -590,9 +648,7 @@ window.onload = async () => {
 
     // resources initialization
     const loadedImages = await initializeImage();
+    const scoreDigits = await loadScoreDigits();
 
-    const game = new FlappyGame(context, loadedImages, board);
-    console.log(loadedImages);
-
-    // game loop init in constructor
+    const game = new FlappyGame(context, loadedImages, board, scoreDigits);
 };
