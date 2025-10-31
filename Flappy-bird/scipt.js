@@ -1,135 +1,335 @@
-// Iphone XR
+// TODO: ptak powinien powinien zmieniać swój obrazek w czasie lotu
+// TODO: pozycja ptaka powinna być skeirowana.w górę lub w dół podczas opadania/wznoszenia
+// TODO: być moe base równie powinien się przemieszczać
+// TODO: LocalStorage powinien przechowywać najlepsze wyniki
+// TODO: przy kontakcie z przeszkodą powinna załączać się animacja
+// TODO: pobicie rekordu skutkuje pojawieniem się animacji przed ekranem podsumowującym
+
+// FIXME: Przeszkoda są tworzone przy uzyciu assetów losowa przerwa miedzy elementami
+// FIXME: obsługa dźwięków i muzyki
+
+// dimensions configuration
 const BOARD_WIDTH = 414;
 const BOARD_HEIGHT = 806;
-let backgroundImage = new Image();
-backgroundImage.src = "./assets/Images/background-day.png";
 
+// game status
 const GAME_STATE = {
     MENU: "menu",
     PLAY: "play",
     GAME_OVER: "gameOver",
 };
 
-let bird = {
-    x: BOARD_WIDTH / 8,
-    y: BOARD_HEIGHT / 2,
-    width: 40,
-    height: 30,
-};
+// --- game define ---
+class FlappyGame {
+    constructor(context, images, board) {
+        // canvas
+        this.context = context;
+        this.board = board;
 
-let velocityY;
-let velocityX = -4;
-let gravity = 0.5;
-let birdY = BOARD_HEIGHT / 2;
-const PIPE_WIDTH = BOARD_WIDTH / 10;
-const PIPE_GAP = BOARD_HEIGHT / 4;
-let pipeArray = [];
-let pipeIntervalId;
-let currentState = GAME_STATE.PLAY;
-const BASE_HEIGHT = 120;
+        // Loaded images
+        this.base = images.base;
+        this.birdImg = images.birdImg;
+        this.pipeImg = images.pipeImg;
+        this.backgroundImage = images.backgroundImage;
 
-const create_pipe = () => {
-    const MIN_PIPE_HEIGHT = 30;
-    const MAX_RANDOM_SPACE =
-        BOARD_HEIGHT - BASE_HEIGHT - PIPE_GAP - 2 * MIN_PIPE_HEIGHT;
-    const RANDOM_HEIGHT_ADDITION = Math.floor(Math.random() * MAX_RANDOM_SPACE);
-    const TOP_PIPE_HEIGHT = MIN_PIPE_HEIGHT + RANDOM_HEIGHT_ADDITION;
-    const BOTOOM_PIPE_HEIGHT =
-        BOARD_HEIGHT - TOP_PIPE_HEIGHT - PIPE_GAP - BASE_HEIGHT;
+        // constance game rule
+        this.PIPE_WIDTH = BOARD_WIDTH / 7;
+        this.PIPE_GAP = BOARD_HEIGHT / 4;
+        this.BASE_HEIGHT = 120; // bird fall
+        this.gravity = 0.4; //
+        this.velocityX = -2; // speed of pipes
+        this.jump = 8;
 
-    let topPipe = {
-        x: BOARD_WIDTH,
-        y: 0,
-        width: PIPE_WIDTH,
-        height: TOP_PIPE_HEIGHT,
-        passed: false,
-        isTop: true,
-    };
+        // Game status
+        this.currentState = GAME_STATE.MENU;
+        this.score = 0;
+        this.pipeArray = [];
+        this.pipeIntervalId = null;
 
-    let bottomPipe = {
-        x: BOARD_WIDTH,
-        y: BOARD_HEIGHT - BOTOOM_PIPE_HEIGHT - BASE_HEIGHT,
-        width: PIPE_WIDTH,
-        height: BOTOOM_PIPE_HEIGHT,
-        passed: false,
-        isTop: false,
-    };
-    console.log(topPipe.height, bottomPipe.height);
+        // bird status
+        this.bird = {
+            x: BOARD_WIDTH / 8,
+            y: BOARD_HEIGHT / 2,
+            width: 40,
+            height: 30,
+        };
+        this.velocityY = 0;
 
-    pipeArray.push(topPipe, bottomPipe);
-};
+        document.addEventListener("keydown", this.handleKeyDown.bind(this));
+        // game loop
+        this.updateGameState();
+    }
 
-const drawPipe = (index) => {
-    let pipe = pipeArray[index];
-    pipe.x += velocityX;
-    const PIPE_HEAD_HEIGHT = 24;
+    clearBoard() {
+        // background
+        if (this.backgroundImage) {
+            this.context.drawImage(
+                this.backgroundImage,
+                0,
+                0,
+                this.board.width,
+                this.board.height
+            );
+        } else {
+            this.context.clearRect(0, 0, this.board.width, this.board.height);
+        }
 
-    if (pipe.isTop) {
-        context.drawImage(
-            pipeImg,
+        // draw base
+        this.context.drawImage(
+            this.base,
             0,
-            PIPE_HEAD_HEIGHT,
-            pipeImg.width,
-            pipeImg.height - PIPE_HEAD_HEIGHT,
-            pipe.x,
-            pipe.y,
-            pipe.width,
-            pipe.height - PIPE_HEAD_HEIGHT
-        );
-
-        context.drawImage(
-            pipeImg,
-            0,
-            0,
-            pipeImg.width,
-            PIPE_HEAD_HEIGHT,
-            pipe.x,
-            pipe.y + pipe.height - PIPE_HEAD_HEIGHT,
-            pipe.width,
-            PIPE_HEAD_HEIGHT
-        );
-    } else {
-        context.drawImage(
-            pipeImg,
-            0,
-            0,
-            pipeImg.width,
-            PIPE_HEAD_HEIGHT,
-
-            pipe.x,
-            pipe.y,
-            pipe.width,
-            PIPE_HEAD_HEIGHT
-        );
-
-        context.drawImage(
-            pipeImg,
-            0,
-            PIPE_HEAD_HEIGHT,
-            pipeImg.width,
-            pipeImg.height - PIPE_HEAD_HEIGHT,
-
-            pipe.x,
-            pipe.y + PIPE_HEAD_HEIGHT,
-            pipe.width,
-            pipe.height - PIPE_HEAD_HEIGHT
+            BOARD_HEIGHT - this.BASE_HEIGHT,
+            BOARD_WIDTH,
+            this.BASE_HEIGHT
         );
     }
-};
 
-let base, birdImg, pipeImg, playButtonImg;
-let score = 0;
-let inputLocked = false;
+    // --- pipe instance ---
+    createPipe() {
+        const MIN_PIPE_HEIGHT = 80;
+        const MAX_RANDOM_SPACE =
+            BOARD_HEIGHT -
+            this.BASE_HEIGHT -
+            this.PIPE_GAP -
+            2 * MIN_PIPE_HEIGHT;
+        const RANDOM_HEIGHT_ADDITION = Math.floor(
+            Math.random() * Math.max(0, MAX_RANDOM_SPACE)
+        );
+        const TOP_PIPE_HEIGHT = MIN_PIPE_HEIGHT + RANDOM_HEIGHT_ADDITION;
+        const BOTOOM_PIPE_HEIGHT =
+            BOARD_HEIGHT - TOP_PIPE_HEIGHT - this.PIPE_GAP - this.BASE_HEIGHT;
+        if (
+            TOP_PIPE_HEIGHT < MIN_PIPE_HEIGHT ||
+            BOTOOM_PIPE_HEIGHT < MIN_PIPE_HEIGHT
+        ) {
+            console.log(TOP_PIPE_HEIGHT, BOTOOM_PIPE_HEIGHT);
+        }
 
+        const topPipe = {
+            x: BOARD_WIDTH,
+            y: 0,
+            width: this.PIPE_WIDTH,
+            height: TOP_PIPE_HEIGHT,
+            passed: false,
+            img: this.pipeImg,
+            isTop: true,
+        };
+
+        const bottomPipe = {
+            x: BOARD_WIDTH,
+            y: BOARD_HEIGHT - BOTOOM_PIPE_HEIGHT - this.BASE_HEIGHT,
+            width: this.PIPE_WIDTH,
+            height: BOTOOM_PIPE_HEIGHT,
+            passed: false,
+            img: this.pipeImg,
+            isTop: false,
+        };
+        this.pipeArray.push(topPipe, bottomPipe);
+    }
+
+    // --- handle pipe collision ---
+    detectCollision(bird, pipe) {
+        return (
+            bird.x < pipe.x + pipe.width &&
+            bird.x + bird.width > pipe.x &&
+            bird.y < pipe.y + pipe.height &&
+            bird.y + bird.height > pipe.y
+        );
+    }
+
+    drawPipe(pipe) {
+        const PIPE_HEAD_HEIGHT = 23;
+
+        if (pipe.isTop) {
+            this.context.drawImage(
+                pipe.img,
+                0,
+                PIPE_HEAD_HEIGHT,
+                pipe.img.width,
+                pipe.img.height - PIPE_HEAD_HEIGHT,
+                pipe.x,
+                pipe.y,
+                pipe.width,
+                pipe.height - PIPE_HEAD_HEIGHT
+            );
+
+            this.context.drawImage(
+                pipe.img,
+                0,
+                0,
+                pipe.img.width,
+                PIPE_HEAD_HEIGHT,
+                pipe.x,
+                pipe.y + pipe.height - PIPE_HEAD_HEIGHT,
+                pipe.width,
+                PIPE_HEAD_HEIGHT
+            );
+        } else {
+            // Rura Dolna (normalna)
+            this.context.drawImage(
+                pipe.img,
+                0,
+                0,
+                pipe.img.width,
+                PIPE_HEAD_HEIGHT,
+                pipe.x,
+                pipe.y,
+                pipe.width,
+                PIPE_HEAD_HEIGHT
+            );
+
+            this.context.drawImage(
+                pipe.img,
+                0,
+                PIPE_HEAD_HEIGHT,
+                pipe.img.width,
+                pipe.img.height - PIPE_HEAD_HEIGHT,
+                pipe.x,
+                pipe.y + PIPE_HEAD_HEIGHT,
+                pipe.width,
+                pipe.height - PIPE_HEAD_HEIGHT
+            );
+        }
+    }
+
+    renderGame() {
+        this.clearBoard();
+
+        // bird position
+        this.velocityY += this.gravity;
+        this.bird.y = Math.max(this.bird.y + this.velocityY, 0);
+
+        // draw bird
+        this.context.drawImage(
+            this.birdImg,
+            this.bird.x,
+            this.bird.y,
+            this.bird.width,
+            this.bird.height
+        );
+
+        // floor collide
+        if (this.bird.y + this.bird.height > BOARD_HEIGHT - this.BASE_HEIGHT) {
+            this.bird.y = BOARD_HEIGHT - this.BASE_HEIGHT - this.bird.height;
+            this.currentState = GAME_STATE.GAME_OVER;
+        }
+
+        // draw pipes
+        for (let index = 0; index < this.pipeArray.length; index++) {
+            let pipe = this.pipeArray[index];
+            pipe.x += this.velocityX;
+            this.drawPipe(pipe);
+            // score
+            if (!pipe.passed && this.bird.x > pipe.x + pipe.width) {
+                this.score += 0.5;
+                pipe.passed = true;
+            }
+
+            // pipe collide
+            if (this.detectCollision(this.bird, pipe)) {
+                this.currentState = GAME_STATE.GAME_OVER;
+            }
+        }
+
+        // remove pipes offscreen
+        while (
+            this.pipeArray.length > 0 &&
+            this.pipeArray[0].x < -this.PIPE_WIDTH
+        ) {
+            this.pipeArray.shift();
+        }
+
+        // draw score
+        this.context.fillStyle = "white";
+        this.context.font = "48px Arial";
+        this.context.textAlign = "right";
+        this.context.fillText(Math.floor(this.score), BOARD_WIDTH - 20, 60);
+    }
+
+    renderMenu() {
+        this.clearBoard();
+        this.context.fillStyle = "black";
+        this.context.font = "30px Arial";
+        this.context.textAlign = "center";
+        this.context.fillText(
+            "Press Space!",
+            BOARD_WIDTH / 2,
+            BOARD_HEIGHT / 3
+        );
+    }
+
+    renderGameOver() {
+        this.context.fillStyle = "red";
+        this.context.font = "50px Arial";
+        this.context.textAlign = "center";
+        this.context.fillText("GAME OVER", BOARD_WIDTH / 2, BOARD_HEIGHT / 4);
+        this.context.fillStyle = "black";
+        this.context.font = "20px Arial";
+        this.context.fillText(
+            "Space, back to Menu",
+            BOARD_WIDTH / 2,
+            BOARD_HEIGHT / 4 + 60
+        );
+    }
+
+    startGame() {
+        this.currentState = GAME_STATE.PLAY;
+        this.bird.y = BOARD_HEIGHT / 2;
+        this.velocityY = 0;
+        this.score = 0;
+        this.pipeArray = [];
+
+        if (this.pipeIntervalId) {
+            clearInterval(this.pipeIntervalId);
+        }
+
+        this.createPipe();
+        this.pipeIntervalId = setInterval(() => {
+            this.createPipe();
+        }, 2100);
+    }
+
+    resetGame() {
+        clearInterval(this.pipeIntervalId);
+        this.pipeIntervalId = null;
+    }
+
+    // handle game status active
+    updateGameState = () => {
+        if (this.currentState === GAME_STATE.MENU) {
+            this.renderMenu();
+        } else if (this.currentState === GAME_STATE.PLAY) {
+            this.renderGame();
+        } else if (this.currentState === GAME_STATE.GAME_OVER) {
+            // this.renderGame();
+            this.renderGameOver();
+            this.resetGame(); // stop pipes
+        }
+        requestAnimationFrame(this.updateGameState);
+    };
+
+    // --- key detect ---
+    handleKeyDown(e) {
+        if (e.code === "Space") {
+            if (this.currentState === GAME_STATE.MENU) {
+                this.startGame();
+            } else if (this.currentState === GAME_STATE.GAME_OVER) {
+                this.currentState = GAME_STATE.MENU;
+            } else if (this.currentState === GAME_STATE.PLAY) {
+                this.velocityY = -this.jump;
+            }
+        }
+    }
+}
+
+// get resources
 const initializeImage = async () => {
     const loadImage = (src) => {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = () => resolve(img);
-            img.onerror = (e) => {
-                console.error(`Błąd ładowania obrazu: ${src}`, e);
+            img.onerror = (e) =>
                 reject(new Error(`Failed to load image: ${src}`));
-            };
             img.src = src;
         });
     };
@@ -141,113 +341,28 @@ const initializeImage = async () => {
         loadImage("./assets/Images/background-day.png"),
     ];
 
-    const [loadedBirdImg, loadedPipeImg, loadedBase, loadedBackground] =
-        await Promise.all(imagePromises);
-
-    birdImg = loadedBirdImg;
-    pipeImg = loadedPipeImg;
-    base = loadedBase;
-    backgroundImage = loadedBackground;
-    console.log("Wszystkie obrazy zostały załadowane!");
-};
-
-const clearBoard = () => {
-    if (backgroundImage) {
-        context.drawImage(backgroundImage, 0, 0, board.width, board.height);
-    } else {
-        context.clearRect(0, 0, board.width, board.height);
-    }
-    context.drawImage(
-        base,
-        0,
-        BOARD_HEIGHT - BASE_HEIGHT,
-        BOARD_WIDTH,
-        BASE_HEIGHT
+    const [birdImg, pipeImg, base, backgroundImage] = await Promise.all(
+        imagePromises
     );
+
+    return { birdImg, pipeImg, base, backgroundImage };
 };
 
-function renderGame() {
-    clearBoard();
-    bird.y = velocityY;
-    context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
-
-    for (let i = 0; i < pipeArray.length; i++) {
-        drawPipe(i);
-    }
-
-    while (pipeArray.length > 0 && pipeArray[0].x < -PIPE_WIDTH) {
-        pipeArray.shift();
-    }
-}
-
-function startGame() {
-    currentState = GAME_STATE.PLAY;
-    bird.y = 0;
-    velocityY = BOARD_HEIGHT / 2 - BASE_HEIGHT / 2;
-    pipeArray = [];
-    score = 0;
-
-    if (pipeIntervalId) {
-        clearInterval(pipeIntervalId);
-    }
-
-    create_pipe();
-    pipeIntervalId = setInterval(() => {
-        create_pipe();
-    }, 500);
-}
-
-const renderMenu = () => {
-    clearBoard();
-    context.fillStyle = "black";
-    context.font = "30px Arial";
-    context.textAlign = "center";
-    context.fillText("Naciśnij SPACJĘ!", BOARD_WIDTH / 2, BOARD_HEIGHT / 3);
-};
-
-const renderGameOver = () => {
-    context.fillStyle = "red";
-    context.font = "50px Arial";
-    context.textAlign = "center";
-    context.fillText("GAME OVER", BOARD_WIDTH / 2, BOARD_HEIGHT / 4);
-};
-
-const updateGameState = () => {
-    if (currentState === GAME_STATE.MENU) {
-        renderMenu();
-    } else if (currentState === GAME_STATE.PLAY) {
-        renderGame();
-    } else if (currentState === GAME_STATE.GAME_OVER) {
-        renderGame();
-        renderGameOver();
-        clearInterval(pipeIntervalId);
-    }
-    requestAnimationFrame(updateGameState);
-};
-
-const handleKeyDown = (e) => {
-    if (e.code === "Space") {
-        if (currentState === GAME_STATE.MENU) {
-            startGame();
-        } else if (currentState === GAME_STATE.GAME_OVER) {
-            resetGame();
-            currentState = GAME_STATE.MENU;
-        } else if (currentState === GAME_STATE.PLAY) {
-            console.log("space");
-        }
-    }
-};
-document.addEventListener("keydown", handleKeyDown);
-
-let board, context;
+// --- run ---
 window.onload = async () => {
-    board = document.getElementById("board");
-    if (!board) return;
+    const board = document.getElementById("board");
+    if (!board) {
+        console.error("Błąd: Element canvas with ID 'board' not found!");
+        return;
+    }
 
     board.height = BOARD_HEIGHT;
     board.width = BOARD_WIDTH;
-    context = board.getContext("2d");
-    await initializeImage();
-    currentState = GAME_STATE.MENU;
-    requestAnimationFrame(updateGameState);
+    const context = board.getContext("2d");
+
+    // resources initialization
+    const loadedImages = await initializeImage();
+
+    const game = new FlappyGame(context, loadedImages, board);
+    // game loop init in constructor
 };
