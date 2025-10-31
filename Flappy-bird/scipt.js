@@ -1,4 +1,3 @@
-// TODO: być moe base równie powinien się przemieszczać
 // TODO: LocalStorage powinien przechowywać najlepsze wyniki
 // TODO: przy kontakcie z przeszkodą powinna załączać się animacja
 // TODO: pobicie rekordu skutkuje pojawieniem się animacji przed ekranem podsumowującym
@@ -14,6 +13,7 @@ const BOARD_HEIGHT = 806;
 const GAME_STATE = {
     MENU: "menu",
     PLAY: "play",
+    CRASHING: "crashing",
     GAME_OVER: "gameOver",
 };
 
@@ -64,6 +64,12 @@ class FlappyGame {
         };
         this.velocityY = 0;
 
+        // flash effect on collision
+        this.isFlashing = false;
+        this.flashDuration = 15;
+        this.flashCounter = 0;
+        this.flashColor = "rgba(255, 255, 255, 0.5)";
+
         // base animation
         this.baseX = 0;
         this.baseVelocity = this.velocityX;
@@ -87,8 +93,13 @@ class FlappyGame {
             this.context.clearRect(0, 0, this.board.width, this.board.height);
         }
 
-        // base running animation
-        this.baseX += this.baseVelocity;
+        // base running animation, only on specify mode
+        if (
+            this.currentState === GAME_STATE.MENU ||
+            this.currentState === GAME_STATE.PLAY
+        ) {
+            this.baseX += this.baseVelocity;
+        }
         if (this.baseX <= -BOARD_WIDTH) {
             this.baseX = 0;
         }
@@ -278,7 +289,12 @@ class FlappyGame {
 
             // pipe collide
             if (this.detectCollision(this.bird, pipe)) {
-                this.currentState = GAME_STATE.GAME_OVER;
+                if (this.currentState === GAME_STATE.PLAY) {
+                    this.currentState = GAME_STATE.CRASHING;
+                    this.resetGame(); // TODO: moze na wyrost
+                    this.isFlashing = true;
+                    this.flashCounter = this.flashDuration;
+                }
             }
         }
 
@@ -346,16 +362,80 @@ class FlappyGame {
         this.pipeIntervalId = null;
     }
 
+    renderGameCrash() {
+        this.clearBoard();
+
+        if (!this.isFlashing) {
+            // bird position
+            this.velocityY += this.gravity;
+            const floorLimit =
+                BOARD_HEIGHT - this.BASE_HEIGHT - this.bird.height;
+            const newY = this.bird.y + this.velocityY;
+            this.bird.y = Math.min(newY, floorLimit);
+
+            // stop move on floor
+            if (this.bird.y === floorLimit) {
+                this.velocityY = 0;
+            }
+
+            this.rotation = Math.min(this.rotation + 0.15, Math.PI / 2);
+        }
+        this.drawBird();
+
+        // draw pipe
+        for (let index = 0; index < this.pipeArray.length; index++) {
+            this.drawPipe(this.pipeArray[index]);
+        }
+
+        // draw score
+        this.context.fillStyle = "white";
+        this.context.font = "48px Arial";
+        this.context.textAlign = "right";
+        this.context.fillText(Math.floor(this.score), BOARD_WIDTH - 20, 60);
+    }
+
+    drawFlashEffect() {
+        if (this.isFlashing && this.flashCounter > 0) {
+            this.context.save();
+            this.context.fillStyle = this.flashColor;
+            this.context.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+            this.context.restore();
+            this.flashCounter--;
+            if (this.flashCounter <= 0) {
+                this.isFlashing = false;
+            }
+        }
+    }
+
     // handle game status active
     updateGameState = () => {
         if (this.currentState === GAME_STATE.MENU) {
             this.renderMenu();
         } else if (this.currentState === GAME_STATE.PLAY) {
             this.renderGame();
+        } else if (this.currentState === GAME_STATE.CRASHING) {
+            if (this.isFlashing) {
+                // Rysujemy grę (żeby było widać miganie na jej tle)
+                this.renderGameCrash();
+                this.drawFlashEffect();
+
+                if (this.flashCounter <= 0) {
+                    this.isFlashing = false;
+                    this.currentState = GAME_STATE.CRASHING;
+                }
+            } else {
+                this.renderGameCrash();
+                if (
+                    this.bird.y + this.bird.height >=
+                    BOARD_HEIGHT - this.BASE_HEIGHT
+                ) {
+                    this.currentState = GAME_STATE.GAME_OVER;
+                }
+            }
         } else if (this.currentState === GAME_STATE.GAME_OVER) {
             // this.renderGame();
             this.renderGameOver();
-            this.resetGame(); // stop pipes
+            //this.resetGame(); // stop pipes
         }
         requestAnimationFrame(this.updateGameState);
     };
