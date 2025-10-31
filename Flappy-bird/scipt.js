@@ -1,5 +1,4 @@
 // TODO: LocalStorage powinien przechowywać najlepsze wyniki
-// TODO: przy kontakcie z przeszkodą powinna załączać się animacja
 // TODO: pobicie rekordu skutkuje pojawieniem się animacji przed ekranem podsumowującym
 
 // FIXME: Przeszkoda są tworzone przy uzyciu assetów losowa przerwa miedzy elementami
@@ -73,6 +72,13 @@ class FlappyGame {
         // base animation
         this.baseX = 0;
         this.baseVelocity = this.velocityX;
+
+        // scores settings
+        this.MAX_HIGH_SCORES = 5;
+        this.STORAGE_KEY = "flappyHighScores";
+        this.highScores = this.loadHighScores();
+        this.isNewRecord = false;
+        this.scoreSaved = false;
 
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
         // game loop
@@ -337,6 +343,33 @@ class FlappyGame {
             BOARD_WIDTH / 2,
             BOARD_HEIGHT / 4 + 60
         );
+
+        // show High Scores
+        this.context.fillStyle = "black";
+        this.context.font = "18px Arial";
+        this.context.textAlign = "center";
+
+        let yOffset = BOARD_HEIGHT / 4 + 100;
+
+        this.context.fillText(
+            "--- NAJLEPSZE WYNIKI ---",
+            BOARD_WIDTH / 2,
+            yOffset
+        );
+        yOffset += 25;
+
+        if (this.highScores.length === 0) {
+            this.context.fillText("Brak wyników", BOARD_WIDTH / 2, yOffset);
+        } else {
+            this.highScores.forEach((entry, index) => {
+                const text = `${index + 1}. ${entry.score} pkt (${entry.date})`;
+                this.context.fillText(
+                    text,
+                    BOARD_WIDTH / 2,
+                    yOffset + index * 20
+                );
+            });
+        }
     }
 
     startGame() {
@@ -359,11 +392,17 @@ class FlappyGame {
 
     resetGame() {
         clearInterval(this.pipeIntervalId);
+        this.scoreSaved = false;
         this.pipeIntervalId = null;
     }
 
     renderGameCrash() {
         this.clearBoard();
+
+        // draw pipe
+        for (let index = 0; index < this.pipeArray.length; index++) {
+            this.drawPipe(this.pipeArray[index]);
+        }
 
         if (!this.isFlashing) {
             // bird position
@@ -381,11 +420,6 @@ class FlappyGame {
             this.rotation = Math.min(this.rotation + 0.15, Math.PI / 2);
         }
         this.drawBird();
-
-        // draw pipe
-        for (let index = 0; index < this.pipeArray.length; index++) {
-            this.drawPipe(this.pipeArray[index]);
-        }
 
         // draw score
         this.context.fillStyle = "white";
@@ -414,8 +448,8 @@ class FlappyGame {
         } else if (this.currentState === GAME_STATE.PLAY) {
             this.renderGame();
         } else if (this.currentState === GAME_STATE.CRASHING) {
+            this.saveScore(this.score);
             if (this.isFlashing) {
-                // Rysujemy grę (żeby było widać miganie na jej tle)
                 this.renderGameCrash();
                 this.drawFlashEffect();
 
@@ -439,6 +473,33 @@ class FlappyGame {
         }
         requestAnimationFrame(this.updateGameState);
     };
+
+    saveScore(newScore) {
+        if (this.scoreSaved) return false;
+        this.scoreSaved = true;
+        const scoreEntry = {
+            score: Math.floor(newScore),
+            date: new Date().toLocaleDateString("pl-PL"),
+        };
+
+        this.highScores.push(scoreEntry);
+        this.highScores.sort((a, b) => b.score - a.score);
+        if (this.highScores.length > this.MAX_HIGH_SCORES) {
+            this.highScores.length = this.MAX_HIGH_SCORES;
+        }
+
+        // nowy wynik TODO: animacja pobicia rekordu)
+        const isNewRecord = this.highScores.some(
+            (entry) => entry === scoreEntry
+        );
+        this.isNewRecord = isNewRecord;
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.highScores));
+    }
+
+    loadHighScores() {
+        const json = localStorage.getItem(this.STORAGE_KEY);
+        return json ? JSON.parse(json) : [];
+    }
 
     // --- key detect ---
     handleKeyDown(e) {
