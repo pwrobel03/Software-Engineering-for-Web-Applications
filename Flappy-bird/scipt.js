@@ -1,4 +1,3 @@
-// TODO: ptak powinien powinien zmieniać swój obrazek w czasie lotu
 // TODO: pozycja ptaka powinna być skeirowana.w górę lub w dół podczas opadania/wznoszenia
 // TODO: być moe base równie powinien się przemieszczać
 // TODO: LocalStorage powinien przechowywać najlepsze wyniki
@@ -28,9 +27,19 @@ class FlappyGame {
 
         // Loaded images
         this.base = images.base;
-        this.birdImg = images.birdImg;
+        this.birdFrames = [
+            images.birdMid,
+            images.birdUp,
+            images.birdMid,
+            images.birdDown,
+        ];
         this.pipeImg = images.pipeImg;
         this.backgroundImage = images.backgroundImage;
+
+        // logical bird image changes
+        this.frameIndex = 0;
+        this.frameCounter = 0;
+        this.FRAME_SPEED = 5;
 
         // constance game rule
         this.PIPE_WIDTH = BOARD_WIDTH / 7;
@@ -199,9 +208,17 @@ class FlappyGame {
         this.velocityY += this.gravity;
         this.bird.y = Math.max(this.bird.y + this.velocityY, 0);
 
+        // bird animation
+        this.frameCounter++;
+        if (this.frameCounter >= this.FRAME_SPEED) {
+            // Zwiększ indeks klatki, zawijając do początku tablicy
+            this.frameIndex = (this.frameIndex + 1) % this.birdFrames.length;
+            this.frameCounter = 0;
+        }
+
         // draw bird
         this.context.drawImage(
-            this.birdImg,
+            this.birdFrames[this.frameIndex],
             this.bird.x,
             this.bird.y,
             this.bird.width,
@@ -335,17 +352,18 @@ const initializeImage = async () => {
     };
 
     const imagePromises = [
+        loadImage("./assets/Images/yellowbird-upflap.png"),
         loadImage("./assets/Images/yellowbird-midflap.png"),
+        loadImage("./assets/Images/yellowbird-downflap.png"),
         loadImage("./assets/Images/pipe-green.png"),
         loadImage("./assets/Images/base.png"),
         loadImage("./assets/Images/background-day.png"),
     ];
 
-    const [birdImg, pipeImg, base, backgroundImage] = await Promise.all(
-        imagePromises
-    );
+    const [birdUp, birdMid, birdDown, pipeImg, base, backgroundImage] =
+        await Promise.all(imagePromises);
 
-    return { birdImg, pipeImg, base, backgroundImage };
+    return { birdUp, birdMid, birdDown, pipeImg, base, backgroundImage };
 };
 
 // --- run ---
@@ -364,5 +382,7 @@ window.onload = async () => {
     const loadedImages = await initializeImage();
 
     const game = new FlappyGame(context, loadedImages, board);
+    console.log(loadedImages);
+
     // game loop init in constructor
 };
