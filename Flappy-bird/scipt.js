@@ -451,6 +451,7 @@ class FlappyGame {
     }
 
     startGame() {
+        this.scoreSaved = false;
         this.currentState = GAME_STATE.PLAY;
         this.bird.y = BOARD_HEIGHT / 2;
         this.velocityY = 0;
@@ -470,7 +471,6 @@ class FlappyGame {
 
     resetGame() {
         clearInterval(this.pipeIntervalId);
-        this.scoreSaved = false;
         this.pipeIntervalId = null;
     }
 
@@ -550,6 +550,7 @@ class FlappyGame {
     };
 
     saveScore(newScore) {
+        console.log("save score");
         if (this.scoreSaved) return false;
         this.scoreSaved = true;
         const scoreEntry = {
