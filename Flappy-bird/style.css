@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    background-color: #333;
+}
+
+body {
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+#board {
+    background-image: url('./assets/Images/background-day.png');
+    cursor: pointer;
+    background-size: cover;
+}
