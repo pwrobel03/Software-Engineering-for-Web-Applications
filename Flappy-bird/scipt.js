@@ -339,7 +339,7 @@ class FlappyGame {
         // floor collide
         if (this.bird.y + this.bird.height > BOARD_HEIGHT - this.BASE_HEIGHT) {
             this.bird.y = BOARD_HEIGHT - this.BASE_HEIGHT - this.bird.height;
-            this.currentState = GAME_STATE.GAME_OVER;
+            this.currentState = GAME_STATE.CRASHING;
         }
 
         // draw pipes
