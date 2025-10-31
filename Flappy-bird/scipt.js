@@ -64,6 +64,10 @@ class FlappyGame {
         };
         this.velocityY = 0;
 
+        // base animation
+        this.baseX = 0;
+        this.baseVelocity = this.velocityX;
+
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
         // game loop
         this.updateGameState();
@@ -83,10 +87,24 @@ class FlappyGame {
             this.context.clearRect(0, 0, this.board.width, this.board.height);
         }
 
+        // base running animation
+        this.baseX += this.baseVelocity;
+        if (this.baseX <= -BOARD_WIDTH) {
+            this.baseX = 0;
+        }
+
         // draw base
         this.context.drawImage(
             this.base,
-            0,
+            this.baseX,
+            BOARD_HEIGHT - this.BASE_HEIGHT,
+            BOARD_WIDTH,
+            this.BASE_HEIGHT
+        );
+
+        this.context.drawImage(
+            this.base,
+            this.baseX + BOARD_WIDTH,
             BOARD_HEIGHT - this.BASE_HEIGHT,
             BOARD_WIDTH,
             this.BASE_HEIGHT
