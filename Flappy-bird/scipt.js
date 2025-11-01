@@ -1,5 +1,3 @@
-// TODO: pobicie rekordu skutkuje pojawieniem się animacji przed ekranem podsumowującym
-
 // FIXME: Przeszkoda są tworzone przy uzyciu assetów losowa przerwa miedzy elementami
 // FIXME: obsługa dźwięków i muzyki
 
@@ -77,7 +75,7 @@ class FlappyGame {
         this.jump = 8;
 
         // Game status
-        this.currentState = GAME_STATE.CONGRATULATIONS;
+        this.currentState = GAME_STATE.MENU;
         this.score = 0;
         this.pipeArray = [];
         this.pipeIntervalId = null;
@@ -334,7 +332,7 @@ class FlappyGame {
     drawScore() {
         if (!this.scoreDigits) {
             this.context.fillStyle = "white";
-            this.context.font = "48px Arial";
+            this.context.font = "48px bold Flappy Bird Regular";
             this.context.textAlign = "right";
             this.context.fillText(Math.floor(this.score), BOARD_WIDTH - 20, 60);
             return;
@@ -424,7 +422,7 @@ class FlappyGame {
             );
         } else {
             this.context.fillStyle = "white";
-            this.context.font = "30px Arial";
+            this.context.font = "30px bold Flappy Bird Regular";
             this.context.textAlign = "center";
             this.context.fillText(
                 "Press Space!",
@@ -451,23 +449,23 @@ class FlappyGame {
 
         // show High Scores
         this.context.fillStyle = "white";
-        this.context.font = "24px Arial";
+        this.context.font = "24px bold Flappy Bird Regular";
         this.context.textAlign = "center";
 
         let yOffset = BOARD_HEIGHT / 4 + 100;
 
         this.context.fillText(
-            "--- NAJLEPSZE WYNIKI ---",
+            "--- BEST SCORES ---",
             BOARD_WIDTH / 2,
             yOffset - 20
         );
         yOffset += 25;
 
         if (this.highScores.length === 0) {
-            this.context.fillText("Brak wyników", BOARD_WIDTH / 2, yOffset);
+            this.context.fillText("NO SCORES", BOARD_WIDTH / 2, yOffset);
         } else {
             this.highScores.forEach((entry, index) => {
-                const text = `${index + 1}. ${entry.score} pkt (${entry.date})`;
+                const text = `${index + 1}. ${entry.score} pts (${entry.date})`;
                 this.context.fillText(
                     text,
                     BOARD_WIDTH / 2,
@@ -475,12 +473,30 @@ class FlappyGame {
                 );
             });
         }
+
+        this.context.fillStyle = "#f8a146";
+        this.context.font = "24px bold Flappy Bird Regular";
+        this.context.textAlign = "center";
+        this.context.fillText(
+            `<--- YOUR SCORE: ${this.score} --->`,
+            BOARD_WIDTH / 2,
+            BOARD_HEIGHT - BOARD_HEIGHT / 4 - 80
+        );
+
+        this.context.fillStyle = "white";
+        this.context.font = "32px bold Flappy Bird Regular";
+        this.context.textAlign = "center";
+        this.context.fillText(
+            "PRESS SPACE TO PLAY",
+            BOARD_WIDTH / 2,
+            BOARD_HEIGHT - BOARD_HEIGHT / 4 - 30
+        );
     }
 
     drawHighestScore() {
         if (!this.scoreDigits) {
             this.context.fillStyle = "white";
-            this.context.font = "48px Arial";
+            this.context.font = "48px bold Flappy Bird Regular";
             this.context.textAlign = "right";
             this.context.fillText(
                 Math.floor(this.score),
@@ -539,7 +555,7 @@ class FlappyGame {
         this.context.font = "32px bold Flappy Bird Regular";
         this.context.textAlign = "center";
         this.context.fillText(
-            "HIT SPACE TO PLAY",
+            "PRESS SPACE TO PLAY",
             BOARD_WIDTH / 2,
             BOARD_HEIGHT - BOARD_HEIGHT / 2 + 30
         );
@@ -611,7 +627,7 @@ class FlappyGame {
             }
 
             if (this.currentState === GAME_STATE.CRASHING) {
-                this.isNewRecord = true;
+                // this.isNewRecord = true;
                 if (this.isNewRecord) {
                     if (!this.recordTimerActive) {
                         setTimeout(() => {
@@ -749,6 +765,8 @@ class FlappyGame {
             } else if (this.currentState === GAME_STATE.PLAY) {
                 this.velocityY = -this.jump;
                 this.rotation = -Math.PI / 4;
+            } else if (this.currentState === GAME_STATE.CONGRATULATIONS) {
+                this.currentState = GAME_STATE.MENU;
             }
         }
     }
