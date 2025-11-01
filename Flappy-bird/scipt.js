@@ -58,6 +58,7 @@ class FlappyGame {
         this.pipeImg = images.pipeImg;
         this.backgroundImage = images.backgroundImage;
         this.titleScreenImg = images.titleScreenImg;
+        this.gameOverImg = images.gameOverImg;
         this.rotation = 0;
 
         // logical bird image changes
@@ -374,10 +375,6 @@ class FlappyGame {
 
         // draw score
         this.drawScore();
-        // this.context.fillStyle = "white";
-        // this.context.font = "48px Arial";
-        // this.context.textAlign = "right";
-        // this.context.fillText(Math.floor(this.score), BOARD_WIDTH - 20, 60);
     }
 
     renderMenu() {
@@ -410,21 +407,23 @@ class FlappyGame {
     }
 
     renderGameOver() {
-        this.context.fillStyle = "red";
-        this.context.font = "50px Arial";
-        this.context.textAlign = "center";
-        this.context.fillText("GAME OVER", BOARD_WIDTH / 2, BOARD_HEIGHT / 4);
-        this.context.fillStyle = "black";
-        this.context.font = "20px Arial";
-        this.context.fillText(
-            "Space, back to Menu",
-            BOARD_WIDTH / 2,
-            BOARD_HEIGHT / 4 + 60
+        const originalWidth = this.gameOverImg.width;
+        const originalHeight = this.gameOverImg.height;
+        const targetWidth = BOARD_WIDTH * 0.85;
+        const targetHeight = (originalHeight / originalWidth) * targetWidth;
+        const drawX = (BOARD_WIDTH - targetWidth) / 2;
+        const drawY = BOARD_HEIGHT / 5;
+        this.context.drawImage(
+            this.gameOverImg,
+            drawX,
+            drawY,
+            targetWidth,
+            targetHeight
         );
 
         // show High Scores
-        this.context.fillStyle = "black";
-        this.context.font = "18px Arial";
+        this.context.fillStyle = "white";
+        this.context.font = "24px Arial";
         this.context.textAlign = "center";
 
         let yOffset = BOARD_HEIGHT / 4 + 100;
@@ -432,7 +431,7 @@ class FlappyGame {
         this.context.fillText(
             "--- NAJLEPSZE WYNIKI ---",
             BOARD_WIDTH / 2,
-            yOffset
+            yOffset - 20
         );
         yOffset += 25;
 
@@ -444,7 +443,7 @@ class FlappyGame {
                 this.context.fillText(
                     text,
                     BOARD_WIDTH / 2,
-                    yOffset + index * 20
+                    yOffset + index * 40
                 );
             });
         }
@@ -550,7 +549,6 @@ class FlappyGame {
     };
 
     saveScore(newScore) {
-        console.log("save score");
         if (this.scoreSaved) return false;
         this.scoreSaved = true;
         const scoreEntry = {
@@ -612,6 +610,7 @@ const initializeImage = async () => {
         loadImage("./assets/Images/base.png"),
         loadImage("./assets/Images/background-day.png"),
         loadImage("./assets/UI/message.png"),
+        loadImage("./assets/UI/gameover.png"),
     ];
 
     const [
@@ -622,6 +621,7 @@ const initializeImage = async () => {
         base,
         backgroundImage,
         titleScreenImg,
+        gameOverImg,
     ] = await Promise.all(imagePromises);
 
     return {
@@ -632,6 +632,7 @@ const initializeImage = async () => {
         base,
         backgroundImage,
         titleScreenImg,
+        gameOverImg,
     };
 };
 

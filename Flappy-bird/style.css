@@ -6,10 +6,14 @@
 body {
     min-width: 100vw;
     min-height: 100vh;
+    display: flex;
 }
 
 #board {
     background-image: url('./assets/Images/background-day.png');
     cursor: pointer;
     background-size: cover;
+    height: 100vh;
+    margin: 0 auto;
+    cursor: none !important;
 }
