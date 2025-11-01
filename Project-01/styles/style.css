@@ -78,6 +78,7 @@ html {
     font-family: Poppins;
     background-color: var(--base-variant);
     scroll-behavior: smooth;
+    font-size: var(--font-size-base);
 }
 
 body {
@@ -315,6 +316,7 @@ nav {
     gap: 6px;
     color: var(--text-color);
     fill: var(--text-color);
+    cursor: pointer;
 }
 
 .navbar-logo p {
