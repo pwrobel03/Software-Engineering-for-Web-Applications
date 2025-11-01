@@ -184,20 +184,20 @@
     font-size: var(--font-size-base);
 }
 
-.error-message {
+.error-message{
     color: #cc0000;
     background-color: #ffe0e0;
     border: 1px solid #cc0000;
     border-radius: 4px;
-    padding: 1em 2em;
+    padding: 1em 2em !important;
 }
 
-.success-message {
+.success-message{
     color: #008000;
     background-color: #e0ffe0;
     border: 1px solid #008000;
     border-radius: 4px;
-    padding: 1em 2em;
+    padding: 1em 2em !important;
 }
 
 /* --- Mobile view --- */
