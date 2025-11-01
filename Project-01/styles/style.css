@@ -74,13 +74,6 @@
     font-family: "Momo-Signature";
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    /* Zalecana najlepsza praktyka */
-}
-
 html {
     font-family: Poppins;
     background-color: var(--base-variant);
