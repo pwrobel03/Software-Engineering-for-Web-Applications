@@ -10,6 +10,7 @@
     --accent-color-light: #fb8f38;
     --accent-color-bg: rgba(251,143,56,0.1);
     --footer-color: #070a10;
+    --show-alert-color: rgba(235, 89, 12, 0.7);;
     /* Typografia */
     --font-primary: 'Inter', 'Arial', sans-serif;
     /* --font-size-sm: 0.875rem;
@@ -216,6 +217,10 @@ h1 {
 
 .text-white {
     color: #fff;
+}
+
+.text-black {
+    color: #111528;
 }
 
 .text-accent {

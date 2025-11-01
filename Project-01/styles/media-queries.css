@@ -92,6 +92,10 @@
     .footer-content {
         flex-direction: row;
     }
+
+    .footer-content>div {
+        padding: 1em 2em;
+    }
 }
 
 @media (min-width: 1024px) {}
