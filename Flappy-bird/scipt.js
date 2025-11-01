@@ -40,14 +40,57 @@ const loadScoreDigits = async () => {
     return digitImages;
 };
 
+const loadSounds = async () => {
+    const loadAudio = (src) => {
+        return new Promise((resolve, reject) => {
+            const audio = new Audio();
+            audio.onload = () => resolve(audio);
+            audio.addEventListener("canplaythrough", () => resolve(audio), {
+                once: true,
+            });
+            audio.onerror = (e) =>
+                reject(new Error(`Failed to load audio: ${src}`));
+            audio.src = src;
+        });
+    };
+
+    const soundPromises = [
+        loadAudio("./assets/SoundEffects/wing.wav"), // jump sound
+        loadAudio("./assets/SoundEffects/hit.wav"), // collide sound
+        loadAudio("./assets/SoundEffects/point.wav"), // score sound
+        loadAudio("./assets/SoundEffects/die.wav"), // fall sound
+        loadAudio("./assets/SoundEffects/swoosh.ogg"),
+    ];
+
+    const [sfxWing, sfxHit, sfxPoint, sfxDie, sfxSwoosh] = await Promise.all(
+        soundPromises
+    );
+    sfxWing.volume = 0.1;
+    sfxPoint.volume = 0.1;
+    sfxDie.volume = 1;
+    sfxHit.volume = 0.3;
+
+    return { sfxWing, sfxHit, sfxPoint, sfxDie, sfxSwoosh };
+};
+
+const playSound = (sound, condition) => {
+    condition = false;
+    if (sound && !condition) {
+        sound.currentTime = 0;
+        sound.play();
+    } else if (sound && condition) {
+        sound.play();
+    }
+};
+
 // --- game define ---
 class FlappyGame {
-    constructor(context, images, board, scoreDigits) {
+    constructor(context, images, board, scoreDigits, sounds) {
         // canvas
         this.context = context;
         this.board = board;
 
-        // Loaded images
+        // Loaded images&music
         this.base = images.base;
         this.birdFrames = [
             images.birdMid,
@@ -60,6 +103,7 @@ class FlappyGame {
         this.titleScreenImg = images.titleScreenImg;
         this.gameOverImg = images.gameOverImg;
         this.rotation = 0;
+        this.sounds = sounds;
 
         // logical bird image changes
         this.frameIndex = 0;
@@ -365,6 +409,7 @@ class FlappyGame {
 
         // floor collide
         if (this.bird.y + this.bird.height > BOARD_HEIGHT - this.BASE_HEIGHT) {
+            playSound(this.sounds.sfxHit, false);
             this.bird.y = BOARD_HEIGHT - this.BASE_HEIGHT - this.bird.height;
             this.currentState = GAME_STATE.CRASHING;
         }
@@ -377,12 +422,17 @@ class FlappyGame {
             // score
             if (!pipe.passed && this.bird.x > pipe.x + pipe.width) {
                 this.score += 0.5;
+                playSound(this.sounds.sfxPoint, false);
                 pipe.passed = true;
             }
 
             // pipe collide
             if (this.detectCollision(this.bird, pipe)) {
                 if (this.currentState === GAME_STATE.PLAY) {
+                    playSound(this.sounds.sfxHit, false);
+                    setTimeout(() => {
+                        playSound(this.sounds.sfxDie, false);
+                    }, 200);
                     this.currentState = GAME_STATE.CRASHING;
                     this.resetGame(); // TODO: moze na wyrost
                     this.isFlashing = true;
@@ -528,7 +578,6 @@ class FlappyGame {
     }
 
     renderCongratulations() {
-        console.log("Congrat");
         this.drawHighestScore();
 
         // highest score
@@ -637,6 +686,7 @@ class FlappyGame {
                     }
                 } else {
                     this.currentState = GAME_STATE.GAME_OVER;
+                    playSound(this.sounds.sfxSwoosh, true);
                 }
             }
         }
@@ -698,6 +748,7 @@ class FlappyGame {
                 this.highestScoreAnimationEnd = true;
                 setTimeout(() => {
                     this.currentState = GAME_STATE.CONGRATULATIONS;
+                    playSound(this.sounds.sfxSwoosh, true);
                     this.recordTimerActive = false;
                     this.highestScoreAnimationEnd = false;
                     this.clearBoard();
@@ -759,14 +810,19 @@ class FlappyGame {
     handleKeyDown(e) {
         if (e.code === "Space") {
             if (this.currentState === GAME_STATE.MENU) {
+                playSound(this.sounds.sfxSwoosh, true);
                 this.startGame();
             } else if (this.currentState === GAME_STATE.GAME_OVER) {
                 this.currentState = GAME_STATE.MENU;
+                console.log("teraz");
+                playSound(this.sounds.sfxSwoosh, true);
             } else if (this.currentState === GAME_STATE.PLAY) {
                 this.velocityY = -this.jump;
                 this.rotation = -Math.PI / 4;
+                playSound(this.sounds.sfxWing, false);
             } else if (this.currentState === GAME_STATE.CONGRATULATIONS) {
                 this.currentState = GAME_STATE.MENU;
+                playSound(this.sounds.sfxSwoosh, true);
             }
         }
     }
@@ -833,6 +889,13 @@ window.onload = async () => {
     // resources initialization
     const loadedImages = await initializeImage();
     const scoreDigits = await loadScoreDigits();
+    const loadedSounds = await loadSounds();
 
-    const game = new FlappyGame(context, loadedImages, board, scoreDigits);
+    const game = new FlappyGame(
+        context,
+        loadedImages,
+        board,
+        scoreDigits,
+        loadedSounds
+    );
 };
