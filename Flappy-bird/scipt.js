@@ -12,6 +12,7 @@ const GAME_STATE = {
     MENU: "menu",
     PLAY: "play",
     CRASHING: "crashing",
+    NEW_RECORD: "newRecord",
     GAME_OVER: "gameOver",
 };
 
@@ -105,6 +106,9 @@ class FlappyGame {
         this.highScores = this.loadHighScores();
         this.isNewRecord = false;
         this.scoreSaved = false;
+        this.recordTimerActive = false;
+        this.velocityXRec = 0;
+        this.highestScoreAnimationEnd = false;
 
         // score display
         this.scoreDigits = scoreDigits;
@@ -133,7 +137,8 @@ class FlappyGame {
         // base running animation, only on specify mode
         if (
             this.currentState === GAME_STATE.MENU ||
-            this.currentState === GAME_STATE.PLAY
+            this.currentState === GAME_STATE.PLAY ||
+            this.currentState == GAME_STATE.NEW_RECORD
         ) {
             this.baseX += this.baseVelocity;
         }
@@ -265,6 +270,28 @@ class FlappyGame {
                 pipe.height - PIPE_HEAD_HEIGHT
             );
         }
+    }
+
+    drawBirdRotation() {
+        this.frameCounter++;
+        if (this.frameCounter >= this.FRAME_SPEED) {
+            this.frameIndex = (this.frameIndex + 1) % this.birdFrames.length;
+            this.frameCounter = 0;
+        }
+
+        const centerX = this.bird.x + this.bird.width / 2;
+        const centerY = this.bird.y + this.bird.height / 2;
+        this.context.save();
+        this.context.translate(centerX, centerY);
+        this.context.rotate(this.rotation);
+        this.context.drawImage(
+            this.birdFrames[this.frameIndex],
+            -this.bird.width / 2,
+            -this.bird.height / 2,
+            this.bird.width,
+            this.bird.height
+        );
+        this.context.restore();
     }
 
     drawBird() {
@@ -451,8 +478,11 @@ class FlappyGame {
 
     startGame() {
         this.scoreSaved = false;
+        this.isNewRecord = false;
+        this.recordTimerActive = false;
         this.currentState = GAME_STATE.PLAY;
         this.bird.y = BOARD_HEIGHT / 2;
+        this.bird.x = BOARD_WIDTH / 8;
         this.velocityY = 0;
         this.score = 0;
         this.pipeArray = [];
@@ -481,17 +511,20 @@ class FlappyGame {
             this.drawPipe(this.pipeArray[index]);
         }
 
+        const floorLimit = BOARD_HEIGHT - this.BASE_HEIGHT - this.bird.height;
+        let isFloorHit = false;
+
         if (!this.isFlashing) {
             // bird position
             this.velocityY += this.gravity;
-            const floorLimit =
-                BOARD_HEIGHT - this.BASE_HEIGHT - this.bird.height;
             const newY = this.bird.y + this.velocityY;
-            this.bird.y = Math.min(newY, floorLimit);
 
-            // stop move on floor
-            if (this.bird.y === floorLimit) {
+            if (newY >= floorLimit) {
+                this.bird.y = floorLimit;
                 this.velocityY = 0;
+                isFloorHit = true; // flag floor hit
+            } else {
+                this.bird.y = Math.min(newY, floorLimit);
             }
 
             this.rotation = Math.min(this.rotation + 0.15, Math.PI / 2);
@@ -500,6 +533,28 @@ class FlappyGame {
 
         // draw score
         this.drawScore();
+        this.drawFlashEffect();
+
+        if (isFloorHit) {
+            if (!this.scoreSaved) {
+                this.saveScore(this.score);
+                this.scoreSaved = true;
+            }
+
+            if (this.currentState === GAME_STATE.CRASHING) {
+                this.isNewRecord = true;
+                if (this.isNewRecord) {
+                    if (!this.recordTimerActive) {
+                        setTimeout(() => {
+                            this.currentState = GAME_STATE.NEW_RECORD;
+                        }, 1000);
+                        this.recordTimerActive = true;
+                    }
+                } else {
+                    this.currentState = GAME_STATE.GAME_OVER;
+                }
+            }
+        }
     }
 
     drawFlashEffect() {
@@ -515,6 +570,64 @@ class FlappyGame {
         }
     }
 
+    renderNewRecord() {
+        this.clearBoard();
+
+        // draw pipes and score
+        for (let index = 0; index < this.pipeArray.length; index++) {
+            this.drawPipe(this.pipeArray[index]);
+        }
+        this.drawScore();
+
+        const targetY = (BOARD_HEIGHT - this.BASE_HEIGHT) / 2;
+        const targetX = BOARD_WIDTH / 2 - BOARD_WIDTH / 16;
+
+        const distanceToTargetY = targetY - this.bird.y;
+        this.velocityY += distanceToTargetY * 0.15;
+        this.velocityY *= 0.1; // speed control
+        this.bird.y += this.velocityY;
+
+        const distanceToTargetX = targetX - this.bird.x;
+        if (!this.velocityXRec) {
+            this.velocityXRec = 0;
+        }
+
+        this.velocityXRec += distanceToTargetX * 0.1;
+        this.velocityXRec *= 0.1;
+        this.bird.x += this.velocityXRec;
+
+        const isStabilized =
+            Math.abs(this.velocityY) < 0.1 && Math.abs(this.velocityXRec) < 0.1;
+
+        if (!isStabilized) {
+            const targetRotation = -Math.PI / 4;
+            let rotationDiff = targetRotation - this.rotation;
+            if (rotationDiff > Math.PI) rotationDiff -= 2 * Math.PI;
+            if (rotationDiff < -Math.PI) rotationDiff += 2 * Math.PI;
+            this.rotation += rotationDiff * 0.1; // rotation speed
+        } else {
+            this.velocityY = 0;
+            this.velocityXRec = 0;
+            this.rotation = (this.rotation + 0.2) % (2 * Math.PI);
+            if (!this.highestScoreAnimationEnd) {
+                this.highestScoreAnimationEnd = true;
+                setTimeout(() => {
+                    this.currentState = GAME_STATE.GAME_OVER;
+                    this.recordTimerActive = false;
+                    this.highestScoreAnimationEnd = false;
+                    this.clearBoard();
+                }, 3000);
+            }
+        }
+        this.drawBirdRotation();
+
+        // highest score
+        this.context.fillStyle = "gold";
+        this.context.font = "40px Arial";
+        this.context.textAlign = "center";
+        this.context.fillText("NEW RECORD!", BOARD_WIDTH / 2, BOARD_HEIGHT / 4);
+    }
+
     // handle game status active
     updateGameState = () => {
         if (this.currentState === GAME_STATE.MENU) {
@@ -522,28 +635,11 @@ class FlappyGame {
         } else if (this.currentState === GAME_STATE.PLAY) {
             this.renderGame();
         } else if (this.currentState === GAME_STATE.CRASHING) {
-            this.saveScore(this.score);
-            if (this.isFlashing) {
-                this.renderGameCrash();
-                this.drawFlashEffect();
-
-                if (this.flashCounter <= 0) {
-                    this.isFlashing = false;
-                    this.currentState = GAME_STATE.CRASHING;
-                }
-            } else {
-                this.renderGameCrash();
-                if (
-                    this.bird.y + this.bird.height >=
-                    BOARD_HEIGHT - this.BASE_HEIGHT
-                ) {
-                    this.currentState = GAME_STATE.GAME_OVER;
-                }
-            }
+            this.renderGameCrash();
+        } else if (this.currentState === GAME_STATE.NEW_RECORD) {
+            this.renderNewRecord();
         } else if (this.currentState === GAME_STATE.GAME_OVER) {
-            // this.renderGame();
             this.renderGameOver();
-            //this.resetGame(); // stop pipes
         }
         requestAnimationFrame(this.updateGameState);
     };
@@ -556,17 +652,20 @@ class FlappyGame {
             date: new Date().toLocaleDateString("pl-PL"),
         };
 
+        // check best result
+        const currentBestScore =
+            this.highScores.length > 0 ? this.highScores[0].score : 0;
+
         this.highScores.push(scoreEntry);
         this.highScores.sort((a, b) => b.score - a.score);
+
         if (this.highScores.length > this.MAX_HIGH_SCORES) {
             this.highScores.length = this.MAX_HIGH_SCORES;
         }
 
-        // nowy wynik TODO: animacja pobicia rekordu)
-        const isNewRecord = this.highScores.some(
-            (entry) => entry === scoreEntry
-        );
-        this.isNewRecord = isNewRecord;
+        // set flag for best score
+        this.isNewRecord = scoreEntry.score > currentBestScore;
+
         localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.highScores));
     }
 
