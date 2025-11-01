@@ -1,5 +1,4 @@
 // FIXME: Przeszkoda są tworzone przy uzyciu assetów losowa przerwa miedzy elementami
-// FIXME: obsługa dźwięków i muzyki
 
 // dimensions configuration
 const BOARD_WIDTH = 414;
@@ -814,7 +813,6 @@ class FlappyGame {
                 this.startGame();
             } else if (this.currentState === GAME_STATE.GAME_OVER) {
                 this.currentState = GAME_STATE.MENU;
-                console.log("teraz");
                 playSound(this.sounds.sfxSwoosh, true);
             } else if (this.currentState === GAME_STATE.PLAY) {
                 this.velocityY = -this.jump;
