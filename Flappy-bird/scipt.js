@@ -13,6 +13,7 @@ const GAME_STATE = {
     PLAY: "play",
     CRASHING: "crashing",
     NEW_RECORD: "newRecord",
+    CONGRATULATIONS: "congratulations",
     GAME_OVER: "gameOver",
 };
 
@@ -76,7 +77,7 @@ class FlappyGame {
         this.jump = 8;
 
         // Game status
-        this.currentState = GAME_STATE.MENU;
+        this.currentState = GAME_STATE.CONGRATULATIONS;
         this.score = 0;
         this.pipeArray = [];
         this.pipeIntervalId = null;
@@ -476,6 +477,74 @@ class FlappyGame {
         }
     }
 
+    drawHighestScore() {
+        if (!this.scoreDigits) {
+            this.context.fillStyle = "white";
+            this.context.font = "48px Arial";
+            this.context.textAlign = "right";
+            this.context.fillText(
+                Math.floor(this.score),
+                BOARD_WIDTH - 20,
+                BOARD_HEIGHT / 3 + 60
+            );
+            return;
+        }
+
+        const scoreString = Math.floor(this.score).toString();
+        const totalWidth = scoreString.length * (this.DIGIT_WIDTH + 2);
+        let drawX = (BOARD_WIDTH - totalWidth) / 2;
+        for (let i = 0; i < scoreString.length; i++) {
+            const digitChar = scoreString[i];
+            const digit = parseInt(digitChar);
+            const digitImage = this.scoreDigits[digit];
+            if (digitImage) {
+                this.context.drawImage(
+                    digitImage,
+                    drawX,
+                    BOARD_HEIGHT / 3 + 60, // y margin
+                    this.DIGIT_WIDTH,
+                    this.DIGIT_HEIGHT
+                );
+            }
+
+            drawX += this.DIGIT_WIDTH + 2;
+        }
+    }
+
+    renderCongratulations() {
+        console.log("Congrat");
+        this.drawHighestScore();
+
+        // highest score
+        this.context.fillStyle = "white";
+        this.context.font = "52px bold Flappy Bird Regular";
+        this.context.textAlign = "center";
+        this.context.fillText(
+            "THE RECORD",
+            BOARD_WIDTH / 2,
+            BOARD_HEIGHT / 3 + 30
+        );
+
+        this.context.fillStyle = "white";
+        this.context.font = "44px bold Flappy Bird Regular";
+        this.context.textAlign = "center";
+        this.context.fillText(
+            "YOU BREAK",
+            BOARD_WIDTH / 2,
+            BOARD_HEIGHT / 3 - 30
+        );
+
+        // show High Scores
+        this.context.fillStyle = "white";
+        this.context.font = "32px bold Flappy Bird Regular";
+        this.context.textAlign = "center";
+        this.context.fillText(
+            "HIT SPACE TO PLAY",
+            BOARD_WIDTH / 2,
+            BOARD_HEIGHT - BOARD_HEIGHT / 2 + 30
+        );
+    }
+
     startGame() {
         this.scoreSaved = false;
         this.isNewRecord = false;
@@ -612,7 +681,7 @@ class FlappyGame {
             if (!this.highestScoreAnimationEnd) {
                 this.highestScoreAnimationEnd = true;
                 setTimeout(() => {
-                    this.currentState = GAME_STATE.GAME_OVER;
+                    this.currentState = GAME_STATE.CONGRATULATIONS;
                     this.recordTimerActive = false;
                     this.highestScoreAnimationEnd = false;
                     this.clearBoard();
@@ -620,12 +689,6 @@ class FlappyGame {
             }
         }
         this.drawBirdRotation();
-
-        // highest score
-        this.context.fillStyle = "gold";
-        this.context.font = "40px Arial";
-        this.context.textAlign = "center";
-        this.context.fillText("NEW RECORD!", BOARD_WIDTH / 2, BOARD_HEIGHT / 4);
     }
 
     // handle game status active
@@ -638,6 +701,8 @@ class FlappyGame {
             this.renderGameCrash();
         } else if (this.currentState === GAME_STATE.NEW_RECORD) {
             this.renderNewRecord();
+        } else if (this.currentState === GAME_STATE.CONGRATULATIONS) {
+            this.renderCongratulations();
         } else if (this.currentState === GAME_STATE.GAME_OVER) {
             this.renderGameOver();
         }
