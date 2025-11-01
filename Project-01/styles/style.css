@@ -438,3 +438,38 @@ footer {
     text-align: center;
     margin-top: 1em;
 }
+
+.section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section.is-animated {
+    animation: slideInFromBottom 1s ease-out forwards;
+}
+
+.section h2 {
+    padding: 0 12px;
+}
+
+.section p {
+    padding: 0 8px;
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

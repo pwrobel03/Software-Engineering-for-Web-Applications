@@ -5,7 +5,15 @@
     }
 
     .section {
-        padding: 4em 1em;
+        padding: 4em 0em;
+    }
+
+    .schedule-container .tab:nth-child(1) {
+        border-radius: 1em 1em 0em 0em;
+    }
+    
+    .schedule-container .tab:nth-child(3) {
+        border-radius: 0em 0em 1em 1em;
     }
 }
 
@@ -61,6 +69,10 @@
         left: 0%
     }
 
+    footer {
+        padding: 4em 2em;
+    }
+
     .timeline-container-item svg {
         left: 8px
     }
@@ -102,7 +114,7 @@
     }
 
     .footer-content>div {
-        padding: 1em 2em;
+        padding: 1em 0;
     }
 
     .navbar-logo p {

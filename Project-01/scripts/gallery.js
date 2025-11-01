@@ -78,7 +78,6 @@ function handleFilterClick(event) {
 // Render photos
 function renderGallery(imagesToDisplay) {
     galleryContainer.innerHTML = "";
-    console.log("render");
 
     if (imagesToDisplay.length === 0) {
         galleryContainer.innerHTML =
@@ -111,7 +110,7 @@ function renderGallery(imagesToDisplay) {
 
         galleryItem.appendChild(imgElement);
         galleryItem.appendChild(overlay);
-        console.log(galleryItem);
+        // console.log(galleryItem);
 
         fragment.appendChild(galleryItem);
     });
