@@ -70,6 +70,15 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: "Open-Sans";
+    font-family: "Momo-Signature";
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    /* Zalecana najlepsza praktyka */
 }
 
 html {
@@ -214,6 +223,8 @@ main {
 h1 {
     font-size: 5rem;
 }
+
+
 
 .text-white {
     color: #fff;

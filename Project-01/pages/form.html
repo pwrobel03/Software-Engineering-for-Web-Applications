@@ -17,6 +17,7 @@
         />
         <script src="../scripts/hamburger-menu.js" defer></script>
         <script src="../scripts/darkmode.js" defer></script>
+        <script src="../scripts/form.js" defer></script>
     </head>
     <body>
         <!-- navbar -->
@@ -93,7 +94,7 @@
                     <span class="gradient-text">na maraton</span>
                 </h2>
                 <div class="form-container">
-                    <form class="contact-form">
+                    <form id="marathon-form" class="contact-form">
                         <!-- FLEX ROW: Na dużych ekranach dwa pola obok siebie -->
                         <div class="form-row">
                             <div class="form-group">
@@ -158,10 +159,11 @@
                         <button type="submit" class="cta-button submit-btn">
                             Wyślij wiadomość
                         </button>
+                        <div id="form-message-container"></div>
                     </form>
                     <div class="form-location">
                         <div>
-                            <h3>
+                            <h3 class="text-white">
                                 Szczegóły 24-godzinnego Maratonu Czytelniczego
                             </h3>
                             <p class="text-white">
