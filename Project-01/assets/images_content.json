@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "src": "/Project-01/assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
+        "src": "/Software-Engineering-for-Web-Applications/Project-01//assets/images/gallery/autentyczna-scena-klubu-ksiazki.jpg",
         "alt": "Czytająca grupa",
         "tags": ["dyskusja", "relaks"]
     },
@@ -13,31 +13,31 @@
     },
     {
         "id": 3,
-        "src": "/Project-01/assets/images/gallery/group-students-leaned-desk-full-600nw-2449569173.jpg.webp",
+        "src": "/Software-Engineering-for-Web-Applications/Project-01/assets/images/gallery/group-students-leaned-desk-full-600nw-2449569173.jpg.webp",
         "alt": "Praca w pełnym wymiarze",
         "tags": ["warsztat"]
     },
     {
         "id": 4,
-        "src": "/Project-01/assets/images/gallery/grupa-mlodych-ludzi-biznesu-omawiajacych-dokumenty-podczas-spotkania-w-biurze-2.jpg",
+        "src": "/Software-Engineering-for-Web-Applications/Project-01/assets/images/gallery/grupa-mlodych-ludzi-biznesu-omawiajacych-dokumenty-podczas-spotkania-w-biurze-2.jpg",
         "alt": "Czas na kreatywność",
         "tags": ["dyskusja"]
     },
     {
         "id": 5,
-        "src": "/Project-01/assets/images/gallery/zroznicowana-sesja-edukacyjna.jpg",
+        "src": "/Software-Engineering-for-Web-Applications/Project-01/assets/images/gallery/zroznicowana-sesja-edukacyjna.jpg",
         "alt": "Chwila na odpoczynek",
         "tags": ["relaks", "przyjaźń"]
     },
     {
         "id": 6,
-        "src": "/Project-01/assets/images/gallery/kids-enjoying-reading-stockcake.jpg",
+        "src": "/Software-Engineering-for-Web-Applications/Project-01/assets/images/gallery/kids-enjoying-reading-stockcake.jpg",
         "alt": "Najmłodsi też tu są",
         "tags": ["dyskusja", "przyjaźń"]
     },
     {
         "id": 7,
-        "src": "/Project-01/assets/images/gallery/ludzie-czytajacy-razem-widok-z-boku.jpg",
+        "src": "/Software-Engineering-for-Web-Applications/Project-01/assets/images/gallery/ludzie-czytajacy-razem-widok-z-boku.jpg",
         "alt": "Tu chodzi o czytanie",
         "tags": ["cisza"]
     }
