@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const contactButtons = document.querySelectorAll(".navbar-logo");
-    const targetURL = "/Software-Engineering-for-Web-Applications/Project-01/";
+    const targetURL = "/Project-01/";
     if (contactButtons.length > 0) {
         contactButtons.forEach((button) => {
             button.addEventListener("click", () => {
