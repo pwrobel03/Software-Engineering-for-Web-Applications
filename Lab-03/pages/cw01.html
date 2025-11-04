@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Wykonane ćwiczenia</title>
+        <link rel="stylesheet" href="../style.css" />
+    </head>
+    <body>
+        <main id="exercise1" class="exercise-section">
+            <div class="watch-container">
+                <h1 class="watch-title">Stoper</h1>
+                <div class="time-display">
+                    <p><span id="minutes-display">00</span> min</p>
+                    <p><span id="seconds-display">00</span> s</p>
+                </div>
+                <div class="time-controls">
+                    <a id="start-btn" class="back-link">Start</a>
+                    <a id="stop-btn" class="back-link">Stop</a>
+                    <a id="reset-btn" class="back-link">Reset</a>
+                </div>
+            </div>
+            <a href="../" class="back-link">Powrót do listy ćwiczeń</a>
+        </main>
+        <script>
+            function createStopwatch(minutesDisplay, secondsDisplay) {
+                // Zmienne stanu stopera (ukryte przez domknięcie)
+                let startTime = 0;
+                let totalSeconds = 0; // Czas w sekundach
+                let intervalId = null;
+                let isRunning = false;
+
+                // Stała określająca limit: 59 minut i 59 sekund (3599 sekund)
+                const MAX_SECONDS = 3599;
+                const pad = (num) => String(num).padStart(1, "0");
+
+                function updateDisplay() {
+                    const minutes = Math.floor(totalSeconds / 60);
+                    const seconds = totalSeconds % 60;
+
+                    if (minutes > 0) {
+                        minutesDisplay.textContent = pad(minutes);
+                        minutesDisplay.parentElement.style = "display: block";
+                    } else {
+                        minutesDisplay.textContent = "";
+                        minutesDisplay.parentElement.style = "display:none";
+                    }
+
+                    secondsDisplay.textContent = pad(seconds);
+                }
+
+                function tick() {
+                    // Logika automatycznego zatrzymania po osiągnięciu 59:59
+                    if (totalSeconds >= MAX_SECONDS) {
+                        stopwatch.stop();
+                        totalSeconds = MAX_SECONDS;
+                        updateDisplay();
+                        console.log(
+                            "Limit 59:59 osiągnięty. Stoper zatrzymany."
+                        );
+                        return;
+                    }
+
+                    // Zwiększamy licznik sekund co 1000 milisekund (1 sekunda)
+                    totalSeconds++;
+                    updateDisplay();
+                }
+
+                const stopwatch = {
+                    start() {
+                        if (!isRunning) {
+                            // Uruchomienie co 1000 ms (1 sekundę)
+                            intervalId = setInterval(tick, 1000);
+                            isRunning = true;
+                            updateDisplay();
+                        }
+                    },
+
+                    stop() {
+                        if (isRunning) {
+                            clearInterval(intervalId);
+                            intervalId = null;
+                            isRunning = false;
+                        }
+                    },
+
+                    reset() {
+                        stopwatch.stop();
+                        totalSeconds = 0;
+                        updateDisplay();
+                    },
+
+                    getIsRunning() {
+                        return isRunning;
+                    },
+                };
+
+                // Inicjalne ustawienie wyświetlania
+                updateDisplay();
+                return stopwatch;
+            }
+
+            // --- INICJALIZACJA ---
+            document.addEventListener("DOMContentLoaded", () => {
+                const minutes = document.getElementById("minutes-display");
+                const seconds = document.getElementById("seconds-display");
+
+                const startBtn = document.getElementById("start-btn");
+                const stopBtn = document.getElementById("stop-btn");
+                const resetBtn = document.getElementById("reset-btn");
+
+                // 3. Utwórz instancję stopera, przekazując osobne elementy wyświetlające
+                const myStopwatch = createStopwatch(minutes, seconds);
+
+                // 4. Podepnij metody do przycisków
+                startBtn.addEventListener("click", myStopwatch.start);
+                stopBtn.addEventListener("click", myStopwatch.stop);
+                resetBtn.addEventListener("click", myStopwatch.reset);
+            });
+        </script>
+    </body>
+</html>

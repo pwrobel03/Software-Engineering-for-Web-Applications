@@ -127,11 +127,6 @@
     margin-right: 15px;
 }
 
-/* to center squares */
-.square:last-child {
-    margin-right: 0;
-}
-
 .square-1 {
     background-color: #3498db;
 }
