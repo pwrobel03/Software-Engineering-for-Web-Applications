@@ -16,9 +16,7 @@ async function fetchImages() {
     toggleLoader(true); // show loader before fetching data
 
     try {
-        const response = await fetch(
-            "/Software-Engineering-for-Web-Applications/Project-01/assets/images_content.json"
-        );
+        const response = await fetch("/Project-01/assets/images_content.json");
         allImages = await response.json();
 
         // after collecting data
