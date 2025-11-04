@@ -1,3 +1,13 @@
+.form-section {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+}
+
+.form {
+    min-height: 100vh;
+}
+
 .form-container {
     /* Ograniczenie maksymalnej szerokości formularza */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -5,22 +15,33 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    padding-bottom: 4em;
     border-radius: 2em;
+    width: 100%;
+    flex-direction: row-reverse;
+}
+
+.label-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .contact-form {
-    padding: 0 4em;
+    padding: 4em 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
 .form-section h2 {
     text-align: center;
-    padding-bottom: 1em;
+    padding: 0;
+    margin-bottom: 1em;
+    padding: 0 12px;
 }
 
-.form-container p {
-    text-align: center;
-    margin-bottom: 4em;
+.form-container>p {
     color: var(--secondary-text);
 }
 
@@ -38,6 +59,7 @@
     font-size: var(--font-size-lg);
 }
 
+.form-group select,
 .form-group input,
 .form-group textarea {
     width: 100%;
@@ -53,6 +75,14 @@
     font-size: var(--font-size-base);
 }
 
+.form-group select {
+    border-color: var(--accent-color-light);
+}
+
+.form-group textarea {
+    border-color: var(--secondary-text);
+}
+
 .form-group input {
     border-bottom-color: var(--accent-color-light);
 }
@@ -62,6 +92,7 @@
     resize: vertical;
 }
 
+.form-group select:focus,
 .form-group input:focus,
 .form-group textarea:focus {
     border-color: var(--accent-color-light);
@@ -72,6 +103,8 @@
     width: 100%;
     cursor: pointer;
     transition: background-color 0.2s;
+    margin-top: 1em;
+    border-radius: 1em;
 }
 
 .label-form {
@@ -80,10 +113,35 @@
     box-sizing: border-box;
 }
 
+.hero-section-event {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1em;
+}
+
+.hero-section-event p {
+    margin: 0;
+    font-size: var(--font-size-base);
+}
+
+.hero-section-event p:first-child {
+    font-weight: bold;
+    font-size: var(--font-size-lg);
+}
+
+.hero-section-event svg {
+    width: 4rem;
+    height: auto;
+    fill: #fff;
+    margin-right: 1em;
+}
+
 .form-row {
     display: flex;
     gap: 20px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+    overflow: auto;
 }
 
 .form-row .form-group {
@@ -91,6 +149,56 @@
     margin-bottom: 0;
 }
 
+.form-container div,
+.form-container form {
+    width: 100%;
+}
+
+
+
+.form-location {
+    background-image: url("../assets/images/gallery/authentic-book-club-scene-2.jpg");
+    background-size: cover;
+    border-radius: 2em 0em 0em 2em;
+    padding: 4em 2em;
+}
+
+.form-location p {
+    font-size: var(--font-size-base);
+}
+
+.form-location h3 {
+    font-size: var(--font-size-xl);
+}
+
+.form-location {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#form-message-container {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: var(--font-size-base);
+}
+
+.error-message {
+    color: #cc0000;
+    background-color: #ffe0e0;
+    border: 1px solid #cc0000;
+    border-radius: 4px;
+    padding: 1em 2em;
+}
+
+.success-message {
+    color: #008000;
+    background-color: #e0ffe0;
+    border: 1px solid #008000;
+    border-radius: 4px;
+    padding: 1em 2em;
+}
 
 /* --- Mobile view --- */
 @media (max-width: 600px) {
@@ -101,5 +209,28 @@
 
     .form-row .form-group {
         margin-bottom: 20px;
+    }
+
+  
+}
+
+@media (min-width: 600px) {
+    .form-group input {
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .form-container {
+        flex-direction: column;
+    }
+
+    .form-container div,
+    .form-container form {
+        width: auto;
+    }
+
+    .form-location {
+        border-radius: 2em;
     }
 }

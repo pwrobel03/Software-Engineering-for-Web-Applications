@@ -10,6 +10,7 @@
     --accent-color-light: #fb8f38;
     --accent-color-bg: rgba(251,143,56,0.1);
     --footer-color: #070a10;
+    --show-alert-color: rgba(235, 89, 12, 0.7);;
     /* Typografia */
     --font-primary: 'Inter', 'Arial', sans-serif;
     /* --font-size-sm: 0.875rem;
@@ -69,12 +70,15 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: "Open-Sans";
+    font-family: "Momo-Signature";
 }
 
 html {
     font-family: Poppins;
     background-color: var(--base-variant);
     scroll-behavior: smooth;
+    font-size: var(--font-size-base);
 }
 
 body {
@@ -214,8 +218,14 @@ h1 {
     font-size: 5rem;
 }
 
+
+
 .text-white {
     color: #fff;
+}
+
+.text-black {
+    color: #111528;
 }
 
 .text-accent {
@@ -306,6 +316,7 @@ nav {
     gap: 6px;
     color: var(--text-color);
     fill: var(--text-color);
+    cursor: pointer;
 }
 
 .navbar-logo p {
@@ -426,4 +437,39 @@ footer {
 .footer-copyrights {
     text-align: center;
     margin-top: 1em;
+}
+
+.section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section.is-animated {
+    animation: slideInFromBottom 1s ease-out forwards;
+}
+
+.section h2 {
+    padding: 0 12px;
+}
+
+.section p {
+    padding: 0 8px;
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
