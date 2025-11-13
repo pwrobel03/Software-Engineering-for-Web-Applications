@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("marathon-form");
     const emailInput = document.getElementById("email");
     const messageContainer = document.getElementById("form-message-container");
+    if (form === null) return;
     const submitButton = form.querySelector(".submit-btn");
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
