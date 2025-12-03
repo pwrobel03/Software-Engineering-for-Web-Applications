@@ -1,3 +1,4 @@
+import { createOrderRoutes } from "./order.js";
 export const createRoutes = (app) => {
-    // Tu wkrótce dodamy routes dla zamówień
+    createOrderRoutes(app);
 };
