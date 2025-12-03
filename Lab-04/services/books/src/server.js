@@ -1,7 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import { createRoutes } from "./routes/index.js";
+import { createBookRoutes } from "./routes/index.js";
 export const createServer = () => {
     const app = express();
     app.disable("x-powered-by")
@@ -14,7 +14,8 @@ export const createServer = () => {
         res.json({ ok: true });
     });
 
-    createRoutes(app);
+    // Dodajemy routes dla książek
+    createBookRoutes(app);
 
     return app;
 };
