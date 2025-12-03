@@ -3,13 +3,15 @@ version: "3.8"
 services:
   db:
     image: mysql:8.0
+    container_name: shared-mysql-db
     environment:
       MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: sequelize_api
+      MYSQL_DATABASE: bookstore_db  # Zmieńmy nazwę bazy na bardziej ogólną
     ports:
       - "33061:3306"
     volumes:
       - db-data:/var/lib/mysql
+    restart: always
 
 volumes:
   db-data:
