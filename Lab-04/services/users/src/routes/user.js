@@ -9,7 +9,7 @@ export const createUserRoutes = (app) => {
 
     app.get("/users/:id", async (req, res) => {
         const id = parseInt(req.params.id);
-        const user = await repository.getUser(id);
+        const user = await repository.getUserById(id);
         res.json({
             user,
         });

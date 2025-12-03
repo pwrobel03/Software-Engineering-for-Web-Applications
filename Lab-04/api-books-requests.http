@@ -14,13 +14,5 @@ Content-Type: application/json
   "year": 1993
 }
 
-### Update user
-PUT http://localhost:3000/users/1 HTTP/1.1
-Content-Type: application/json
-
-{
-    "name": "Paweł"
-}
-
-### Delete user
-DELETE http://localhost:3000/users/1 HTTP/1.1
+### Delete book
+DELETE http://localhost:3001/api/books/1 HTTP/1.1

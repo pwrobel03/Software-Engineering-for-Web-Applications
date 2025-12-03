@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt"; // Importujemy bibliotekę bcrypt do hash'owania haseł
 import User from "../models/User.js";
 
 export function AddUserRepository(Base) {
@@ -9,14 +10,27 @@ export function AddUserRepository(Base) {
             });
         }
 
-        getUser(id) {
+        async getUserByEmail(email) {
+            return User.findOne({ where: { email } });
+        }
+
+        // Pobranie po ID
+        async getUserById(id) {
             return User.findByPk(id);
         }
 
-        createUser(userAttributes) {
-            return User.create(userAttributes);
+        async createUser(userAttributes) {
+            const { email, password } = userAttributes;
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            // 2. Tworzymy użytkownika z zahaszowanym hasłem
+            return User.create({
+                email,
+                password: hashedPassword,
+            });
         }
 
+        //TODO: implement updateUser and deleteUser methods
         async updateUser(id, userAttributes) {
             const userToUpdate = await this.getUser(id);
             if (!userToUpdate) {

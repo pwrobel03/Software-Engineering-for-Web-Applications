@@ -4,14 +4,10 @@ import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../repository/database.js";
 
 export default class User extends Model {
+    // Metoda pomocnicza, żeby nie zwracać hasła przy toJSON()
     toJSON() {
-        // this.get() zwraca surowe dane
         const values = { ...this.get() };
-
-        // Usuwamy pola, których nie chcemy zwracać
-        delete values.created_at;
-        delete values.updated_at;
-
+        delete values.password; // Usuwamy hasło z wyników API
         return values;
     }
 }
@@ -23,14 +19,14 @@ User.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false, // Domyślnie w TS było wymagane
-        },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
+        },
+        paassword: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         // created_at i updated_at są obsługiwane automatycznie przez konfigurację poniżej
     },
