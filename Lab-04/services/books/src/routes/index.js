@@ -1,3 +1,4 @@
+import { authenticateToken } from "../middleware/auth.js";
 import repository from "../repository/index.js"; // Pamiętaj o imporcie z index.js!
 
 export const createBookRoutes = (app) => {
@@ -30,7 +31,7 @@ export const createBookRoutes = (app) => {
     });
 
     // 3. Dodaje nową książkę
-    app.post("/api/books", async (req, res) => {
+    app.post("/api/books", authenticateToken, async (req, res) => {
         try {
             const { title, author, year } = req.body;
 
@@ -54,7 +55,7 @@ export const createBookRoutes = (app) => {
     });
 
     // 4. Usuwa książkę
-    app.delete("/api/books/:bookId", async (req, res) => {
+    app.delete("/api/books/:bookId", authenticateToken, async (req, res) => {
         try {
             const id = parseInt(req.params.bookId);
             const result = await repository.deleteBook(id);
