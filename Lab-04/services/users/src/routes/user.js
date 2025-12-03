@@ -1,7 +1,68 @@
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 import repository from "../data/repository/index.js";
 export const createUserRoutes = (app) => {
+    app.post("/api/register", async (req, res) => {
+        try {
+            const { email, password } = req.body;
+            if (!email || !password) {
+                return res
+                    .status(400)
+                    .json({ error: "Email and password are required" });
+            }
+
+            const user = await repository.createUser({ email, password });
+
+            // Zwracamy ID nowo utworzonego użytkownika
+            res.status(201).json({ id: user.id });
+        } catch (error) {
+            console.error(error);
+            // Obsługa błędu unikalności emaila (Sequelize UniqueConstraintError)
+            if (error.name === "SequelizeUniqueConstraintError") {
+                return res.status(409).json({ error: "Email already exists" });
+            }
+            res.status(500).json({ error: "Registration failed" });
+        }
+    });
+
+    app.post("/api/login", async (req, res) => {
+        try {
+            const { email, password } = req.body;
+
+            // Szukamy użytkownika po emailu
+            const user = await repository.getUserByEmail(email);
+            if (!user) {
+                return res.status(401).json({ error: "Invalid credentials" });
+            }
+
+            // Sprawdzamy hasło (porównujemy tekst jawny z hashem z bazy)
+            const isPasswordValid = await bcrypt.compare(
+                password,
+                user.password
+            );
+            if (!isPasswordValid) {
+                return res.status(401).json({ error: "Invalid credentials" });
+            }
+
+            // Generujemy token JWT
+            // W tokenie zaszywamy ID użytkownika i email (payload)
+            const token = jwt.sign(
+                { userId: user.id, email: user.email },
+                process.env.JWT_SECRET,
+                { expiresIn: "1h" } // Token ważny przez godzinę
+            );
+
+            res.json({ token });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Login failed" });
+        }
+    });
+
     app.get("/users", async (req, res) => {
         const users = await repository.getUsers();
+        console.log("users");
         res.json({
             users,
         });
