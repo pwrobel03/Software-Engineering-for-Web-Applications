@@ -3,13 +3,13 @@
 Projekt zaliczeniowy realizujący architekturę mikroserwisów w Node.js (Express + Sequelize + MySQL).
 System składa się z trzech niezależnych serwisów komunikujących się przez REST API.
 
-## Struktura
+### Struktura
 
 -   **services/books** (Port 3001) - Zarządzanie książkami.
 -   **services/orders** (Port 3002) - Zarządzanie zamówieniami (integruje się z Books).
 -   **services/users** (Port 3003) - Autentykacja i użytkownicy (JWT).
 
-## Wymagania
+### Wymagania
 
 -   Node.js (v18+)
 -   Docker & Docker Compose
@@ -23,9 +23,9 @@ System składa się z trzech niezależnych serwisów komunikujących się przez 
     -   Serwis Użytkowników (`users`) pełni rolę dostawcy tożsamości. Weryfikuje hasła (hashowane przez `bcrypt`) i wydaje tokeny JWT (podpisane algorytmem HS256).
     -   Serwisy `books` i `orders` posiadają własne Middleware autoryzacyjne, które weryfikują poprawność tokena przy każdym żądaniu modyfikującym dane. Serwisy współdzielą ten sam sekret (`JWT_SECRET`), co pozwala na weryfikację tokenów bez konieczności odpytywania serwisu użytkowników za każdym razem.
 
-## Szczegółowy opis serwisów:
+### Szczegółowy opis serwisów:
 
-### 1. Serwis Książek (Books Service)
+#### 1. Serwis Książek (Books Service)
 
 Odpowiada za katalog produktów.
 
@@ -33,7 +33,7 @@ Odpowiada za katalog produktów.
 -   **Chronione endpointy:** Dodawanie i usuwanie książek (wymaga JWT).
 -   **Model danych:** Przechowuje tytuł, autora i rok wydania.
 
-### 2. Serwis Zamówień (Orders Service)
+#### 2. Serwis Zamówień (Orders Service)
 
 Najbardziej złożony serwis, integrujący system.
 
@@ -41,7 +41,7 @@ Najbardziej złożony serwis, integrujący system.
 -   Wymaga autoryzacji dla wszystkich operacji.
 -   **Model danych:** Przechowuje ID użytkownika, ID książki oraz ilość. Nie posiada relacji kluczy obcych (Foreign Key) do innych tabel, co zapewnia niezależność danych.
 
-### 3. Serwis Użytkowników (Users Service)
+#### 3. Serwis Użytkowników (Users Service)
 
 Odpowiada za zarządzanie tożsamością.
 
@@ -50,7 +50,7 @@ Odpowiada za zarządzanie tożsamością.
 
 ## Instrukcja uruchomienia
 
-### Krok 1: Baza danych
+#### Krok 1: Baza danych
 
 Uruchom kontener z bazą danych MySQL (wspólna dla wszystkich serwisów):
 
@@ -59,7 +59,7 @@ bash
 docker-compose up -d
 ```
 
-### Krok 2: Instalacja zależnosci
+#### Krok 2: Instalacja zależnosci
 
 Dla każdego serwisu należy zainstalować zależności, w tym celu:
 
@@ -69,7 +69,7 @@ cd ../orders && npm install # uruchomienie serwisu orders
 cd ../users && npm install # uruchomienie serwisu users
 ```
 
-### Krok 3: Uruchomienie serwisów
+#### Krok 3: Uruchomienie serwisów
 
 Do prawdiłowej pracy wymagane jest jednoczesne działanie wszystkich 3 serwisów, w tym celu w 3 osobnych oknach terminala uruchamiamy wybrane serwisy
 
