@@ -1,77 +1,77 @@
 # Bookstore Microservices System
 
-Projekt zaliczeniowy realizujący architekturę mikroserwisów w Node.js (Express + Sequelize + MySQL).
-System składa się z trzech niezależnych serwisów komunikujących się przez REST API.
+Final project implementing a microservices architecture in Node.js (Express + Sequelize + MySQL).
+The system consists of three independent services communicating via REST API.
 
-### Struktura
+## Structure
 
--   **services/books** (Port 3001) - Zarządzanie książkami.
--   **services/orders** (Port 3002) - Zarządzanie zamówieniami (integruje się z Books).
--   **services/users** (Port 3003) - Autentykacja i użytkownicy (JWT).
+-   **services/books** (Port 3001) - Book management.
+-   **services/orders** (Port 3002) - Order management (integrates with Books).
+-   **services/users** (Port 3003) - Authentication and users (JWT).
 
-### Wymagania
+## Requirements
 
 -   Node.js (v18+)
 -   Docker & Docker Compose
 
-### Kluczowe założenia projektowe:
+### Key Design Assumptions:
 
-1.  **Komunikacja Synchroniczna (HTTP):**
-    Serwis Zamówień (`orders`) nie posiada bezpośredniego dostępu do tabeli książek. Aby zweryfikować dostępność towaru, wykonuje zapytanie HTTP (przy użyciu biblioteki `axios`) do Serwisu Książek (`books`). Jeśli Serwis Książek zwróci błąd 404 lub nie odpowie, zamówienie nie zostanie przetworzone.
+1.  **Synchronous Communication (HTTP):**
+    The Order Service (`orders`) does not have direct access to the books table. To verify item availability, it executes an HTTP request (using the `axios` library) to the Book Service (`books`). If the Book Service returns a 404 error or does not respond, the order will not be processed.
 
-2.  **Bezpieczeństwo (Stateless Auth):**
-    -   Serwis Użytkowników (`users`) pełni rolę dostawcy tożsamości. Weryfikuje hasła (hashowane przez `bcrypt`) i wydaje tokeny JWT (podpisane algorytmem HS256).
-    -   Serwisy `books` i `orders` posiadają własne Middleware autoryzacyjne, które weryfikują poprawność tokena przy każdym żądaniu modyfikującym dane. Serwisy współdzielą ten sam sekret (`JWT_SECRET`), co pozwala na weryfikację tokenów bez konieczności odpytywania serwisu użytkowników za każdym razem.
+2.  **Security (Stateless Auth):**
+    -   The User Service (`users`) acts as the identity provider. It verifies passwords (hashed by `bcrypt`) and issues JWT tokens (signed with the HS256 algorithm).
+    -   The `books` and `orders` services have their own authorization Middleware that verifies token validity for every request modifying data. The services share the same secret (`JWT_SECRET`), allowing token verification without querying the user service every time.
 
-### Szczegółowy opis serwisów:
+### Detailed Service Description:
 
-#### 1. Serwis Książek (Books Service)
+#### 1. Book Service
 
-Odpowiada za katalog produktów.
+Responsible for the product catalog.
 
--   **Publiczne endpointy:** Pobieranie listy książek i szczegółów książki.
--   **Chronione endpointy:** Dodawanie i usuwanie książek (wymaga JWT).
--   **Model danych:** Przechowuje tytuł, autora i rok wydania.
+-   **Public endpoints:** Retrieving the list of books and book details.
+-   **Protected endpoints:** Adding and removing books (requires JWT).
+-   **Data model:** Stores title, author, and publication year.
 
-#### 2. Serwis Zamówień (Orders Service)
+#### 2. Order Service
 
-Najbardziej złożony serwis, integrujący system.
+The most complex service, integrating the system.
 
--   Przed utworzeniem zamówienia sprawdza dostępność książki w `Books Service`.
--   Wymaga autoryzacji dla wszystkich operacji.
--   **Model danych:** Przechowuje ID użytkownika, ID książki oraz ilość. Nie posiada relacji kluczy obcych (Foreign Key) do innych tabel, co zapewnia niezależność danych.
+-   Checks book availability in `Books Service` before creating an order.
+-   Requires authorization for all operations.
+-   **Data model:** Stores user ID, book ID, and quantity. Does not have Foreign Key relations to other tables, ensuring data independence.
 
-#### 3. Serwis Użytkowników (Users Service)
+#### 3. User Service
 
-Odpowiada za zarządzanie tożsamością.
+Responsible for identity management.
 
--   Obsługuje rejestrację (z walidacją unikalności emaila).
--   Obsługuje logowanie (zwraca token Bearer).
+-   Handles registration (with email uniqueness validation).
+-   Handles login (returns Bearer token).
 
-## Instrukcja uruchomienia
+## Setup Instructions
 
-#### Krok 1: Baza danych
+#### Step 1: Database
 
-Uruchom kontener z bazą danych MySQL (wspólna dla wszystkich serwisów):
+Start the MySQL database container (shared for all services):
 
 ```bash
 bash
 docker-compose up -d
 ```
 
-#### Krok 2: Instalacja zależnosci
+#### Step 2: Dependency Installation
 
-Dla każdego serwisu należy zainstalować zależności, w tym celu:
+Dependencies must be installed for each service. To do this:
 
 ```bash
-cd services/books && npm install # uruchomienie serwisu books
-cd ../orders && npm install # uruchomienie serwisu orders
-cd ../users && npm install # uruchomienie serwisu users
+cd services/books && npm install # starting books service
+cd ../orders && npm install # starting orders service
+cd ../users && npm install # starting users service
 ```
 
-#### Krok 3: Uruchomienie serwisów
+#### Step 3: Starting Services
 
-Do prawdiłowej pracy wymagane jest jednoczesne działanie wszystkich 3 serwisów, w tym celu w 3 osobnych oknach terminala uruchamiamy wybrane serwisy
+For proper operation, all 3 services are required to run simultaneously. To do this, start the selected services in 3 separate terminal windows.
 
 ```bash
 cd services/books
@@ -88,29 +88,29 @@ cd services/users
 npm run dev
 ```
 
-## Testowanie API
+## API Testing
 
-### W głównym katalogu znajduje się plik api-integral-test.http. Można go użyć z rozszerzeniem "REST Client" w VS Code do testowania endpointów.
+### The api-integral-test.http file is located in the main directory. It can be used with the "REST Client" extension in VS Code to test endpoints.
 
-1. Wykonaj request "Rejestracja" i "Logowanie" w sekcji Users.
-2. Skopiuj otrzymany token JWT.
-3. Podmień zmienną @token na górze pliku api-integral-test.http.
-4. Testuj pozostałe endpointy.
+1. Execute "Registration" and "Login" requests in the Users section.
+2. Copy the received JWT token.
+3. Replace the @token variable at the top of the api-integral-test.http file.
+4. Test the remaining endpoints.
 
-### Scenariusze testowe w pliku .http:
+### Test scenarios in the .http file:
 
-**Plik testowy został przygotowany tak, aby sprawdzić pełną ścieżkę krytyczną (Happy Path) oraz obsługę błędów:**
+**The test file has been prepared to verify the full critical path (Happy Path) and error handling:**
 
-Cykl Życia Użytkownika:
+User Life Cycle:
 
--   Rejestracja nowego konta.
--   Logowanie i uzyskanie tokena (niezbędnego do dalszych kroków).
--   Zarządzanie Katalogiem (Serwis Books):
--   Dodanie nowej książki (sprawdzenie czy middleware przepuszcza z tokenem).
--   Pobranie listy książek (sprawdzenie czy endpoint publiczny działa).
+-   New account registration.
+-   Login and token acquisition (necessary for further steps).
+-   Catalog Management (Books Service):
+-   Adding a new book (checking if middleware allows access with token).
+-   Retrieving book list (checking if public endpoint works).
 
-Proces Zakupowy (Integracja):
+Purchasing Process (Integration):
 
--   Złożenie zamówienia na istniejącą książkę (powinno zwrócić 201 Created).
--   Próba zamówienia książki, która nie istnieje (powinno zwrócić 404 z komunikatem o braku książki w zewnętrznym serwisie).
--   Pobranie historii zamówień dla konkretnego użytkownika.
+-   Placing an order for an existing book (should return 201 Created).
+-   Attempting to order a book that does not exist (should return 404 with a message about missing book in the external service).
+-   Retrieving order history for a specific user.
