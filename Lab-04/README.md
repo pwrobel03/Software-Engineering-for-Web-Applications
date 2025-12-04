@@ -1,10 +1,3 @@
-# Instrukcja wykonania (Commit 12 - Finalny)
-
-## Krok 1: Stwórz plik `README.md`
-
-Utwórz ten plik w **głównym katalogu projektu** (obok folderu `services` i pliku `docker-compose.yaml`). Wklej tam poniższą zawartość:
-
-````markdown
 # Bookstore Microservices System
 
 Projekt zaliczeniowy realizujący architekturę mikroserwisów w Node.js (Express + Sequelize + MySQL).
@@ -23,7 +16,7 @@ System składa się z trzech niezależnych serwisów komunikujących się przez 
 
 ## Instrukcja uruchomienia
 
-### 1. Baza danych
+### Krok 1: Baza danych
 
 Uruchom kontener z bazą danych MySQL (wspólna dla wszystkich serwisów):
 
@@ -31,9 +24,8 @@ Uruchom kontener z bazą danych MySQL (wspólna dla wszystkich serwisów):
 bash
 docker-compose up -d
 ```
-````
 
-### 2. Instalacja zaleznosci
+### Krok 2: Instalacja zaleznosci
 
 Dla kazdego serwisu nalezy zainstalować zaleznosci, w tym celu:
 
@@ -55,7 +47,7 @@ cd ../orders && npm install
 cd ../users && npm install
 ```
 
-### 3. Uruchomienie serwisow
+### Krok 3: Uruchomienie serwisow
 
 Do prawdiłowej pracy wymagane jest jednoczesne dzialanie wszytskich 3 serwisow, w tym celu w 3 osobnych oknach terminala uruchamiamy wybrane serwisy
 
