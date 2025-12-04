@@ -99,7 +99,7 @@ npm run dev
 
 ### Scenariusze testowe w pliku .http:
 
-** Plik testowy został przygotowany tak, aby sprawdzić pełną ścieżkę krytyczną (Happy Path) oraz obsługę błędów:**
+**Plik testowy został przygotowany tak, aby sprawdzić pełną ścieżkę krytyczną (Happy Path) oraz obsługę błędów:**
 
 Cykl Życia Użytkownika:
 
