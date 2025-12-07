@@ -1,0 +1,19 @@
+### Get books list
+GET http://localhost:3001/api/books HTTP/1.1
+
+### Get book by id
+GET http://localhost:3001/api/books/1 HTTP/1.1
+
+### Create book
+POST http://localhost:3001/api/books HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoicGlvdHJAdXNlci5jb20iLCJpYXQiOjE3NjQ3NjcwMzgsImV4cCI6MTc2NDc3MDYzOH0.LEHesnuDUH-WH9xfJX_Vf1Au4xTiVjegfIbVwAec3P4
+
+{
+  "title": "Wiedźmin", 
+  "author": "Sapkowski", 
+  "year": 1993
+}
+
+### Delete book
+DELETE http://localhost:3001/api/books/1 HTTP/1.1

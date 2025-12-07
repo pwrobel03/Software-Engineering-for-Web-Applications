@@ -1,0 +1,86 @@
+### Zmienne globalne (Tu wklej token po zalogowaniu)
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiamFuQGtvd2Fsc2tpLnBsIiwiaWF0IjoxNzY0ODU2OTI1LCJleHAiOjE3NjQ4NjA1MjV9.-HChjaEQyB2eGNPe4RE-rG6wOoNy517ar9GPfpF1hR8
+@host_users = http://localhost:3003
+@host_books = http://localhost:3001
+@host_orders = http://localhost:3002
+
+# ==========================================
+# USERS SERVICE (Port 3003)
+# ==========================================
+
+### 1. user registration, add user to DB <---Public endpoint--->
+POST {{host_users}}/api/register
+Content-Type: application/json
+
+{
+  "email": "jan@kowalski.pl",
+  "password": "mojetajnehaslo"
+}
+
+### 2. Login (return token JWT) #You can use this token in further requests <---Public endpoint--->
+POST {{host_users}}/api/login
+Content-Type: application/json
+
+{
+  "email": "jan@kowalski.pl",
+  "password": "mojetajnehaslo"
+}
+
+
+# ==========================================
+# BOOKS SERVICE (Port 3001)
+# ==========================================
+
+### 3. Get list of books <---Public endpoint--->
+GET {{host_books}}/api/books
+
+### 4. Add new book <---Requires Token--->
+POST {{host_books}}/api/books
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Wiedźmin: Ostatnie Życzenie",
+  "author": "Andrzej Sapkowski",
+  "year": 1993
+}
+
+### 5. Get book by ID <---Public endpoint--->
+GET {{host_books}}/api/books/1
+
+### 6. Delete book by ID <---Requires Token--->
+DELETE {{host_books}}/api/books/1
+Authorization: Bearer {{token}}
+
+
+# ==========================================
+# ORDERS SERVICE (Port 3002)
+# ==========================================
+
+### 7. Create new order <---Requires Token--->
+POST {{host_orders}}/api/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "userId": 1,
+  "bookId": 2,
+  "quantity": 4
+}
+
+### 8. Get order by ID <---Requires Token--->
+GET {{host_orders}}/api/orders/1
+Authorization: Bearer {{token}}
+
+### 9. Change order (update quantity) <---Requires Token--->
+PATCH {{host_orders}}/api/orders/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "quantity": 8
+}
+
+### 10. Delete order by ID <---Requires Token--->
+DELETE {{host_orders}}/api/orders/1
+Authorization: Bearer {{token}}

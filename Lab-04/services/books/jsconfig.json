@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext", // Ważne dla obsługi import/export (ES Modules)
+    "target": "ES2022", // Celujemy w nowy Node.js
+    "checkJs": false, // false = nie podkreślaj błędów typów (true = sprawdzaj typy w JS)
+    "moduleResolution": "NodeNext",
+    "strict": false
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
