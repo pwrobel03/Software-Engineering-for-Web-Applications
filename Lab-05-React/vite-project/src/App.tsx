@@ -1,11 +1,17 @@
 import './App.css';
+
 import Koszyk from './components/koszyk/Koszyk';
 import NowyKoszyk from './components/koszyk/NowyKoszyk';
+
 import Licznik from './components/liczniki/Licznik';
 import NowyLicznik from './components/liczniki/NowyLicznik';
+
 import Formularz from './components/formularze/Formularz';
 import Haslo from './components/formularze/Haslo';
 import Logowanie from './components/formularze/Przycisk';
+
+import Ternary from './components/inne/Ternary';
+import Aktualizacja from './components/inne/Aktualizacja';
 
 function App() {
   return (
@@ -36,11 +42,18 @@ function App() {
         ZADANIE 3: FORMULARZE
         ============================================================
       */}
-
       <h2>Zadanie 3: Formularze (3.1 - 3.3)</h2>
       <Formularz />
       <Haslo />
       <Logowanie />
+
+        {/* ============================================================
+        ZADANIE 4: INNE
+        ============================================================
+      */}
+      <h2>Zadanie 4: Inne (4.1, 4.2)</h2>
+      <Ternary />
+      <Aktualizacja />
 
     </div>
   );

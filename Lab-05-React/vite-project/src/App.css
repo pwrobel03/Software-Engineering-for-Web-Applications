@@ -63,5 +63,10 @@ button {
 .task3-input {
   display: flex;
   flex-direction: row;
-  gap:15px
+  gap:15px;
+}
+
+/* Zadanie 4 */
+.highlight {
+  font-weight: bold;
 }

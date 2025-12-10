@@ -22,7 +22,7 @@ const Haslo: React.FC = () => {
 
   // Kolor komunikatu w zależności od stanu walidacji
   const komunikatStyle: React.CSSProperties = {
-    color: komunikat === 'Proszę wprowadzić hasło' || komunikat === 'Hasła nie są zgodne' ? 'red' : '#2ecc71',
+    color: komunikat === 'Proszę wprowadzić hasło' || komunikat === 'Hasła nie są zgodne' ? 'tomato' : '#2ecc71',
     marginTop: '10px',
     fontWeight: 'bold'
   };
