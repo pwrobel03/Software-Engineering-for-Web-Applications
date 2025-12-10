@@ -1,4 +1,6 @@
 import './App.css';
+import Koszyk from './components/koszyk/Koszyk';
+import NowyKoszyk from './components/koszyk/NowyKoszyk';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         ============================================================
       */}
       <h2>Zadanie 1: Koszyk (1.1, 1.2)</h2>
+      <Koszyk />
+      <NowyKoszyk />
 
       {/* ============================================================
         ZADANIE 2: LICZNIKI
