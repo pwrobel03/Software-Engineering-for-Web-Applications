@@ -1,6 +1,8 @@
 import './App.css';
 import Koszyk from './components/koszyk/Koszyk';
 import NowyKoszyk from './components/koszyk/NowyKoszyk';
+import Licznik from './components/liczniki/Licznik';
+import NowyLicznik from './components/liczniki/NowyLicznik';
 
 function App() {
   return (
@@ -24,7 +26,8 @@ function App() {
         ============================================================
       */}
       <h2>Zadanie 2: Liczniki (2.1, 2.2)</h2>
-
+      <Licznik />
+      <NowyLicznik />
 
     </div>
   );
