@@ -16,6 +16,10 @@ import Aktualizacja from './components/inne/Aktualizacja';
 import Studenci from './components/studenci/Studenci';
 import StudentManager from './components/studenci/StudentManager';
 
+import LicznikZEfektami from './components/efekty/LicznikZEfektami';
+import Tytul from './components/efekty/Tytul';
+import Odliczanie from './components/efekty/Odliczanie';
+
 function App() {
   return (
     <div className="container">
@@ -66,6 +70,16 @@ function App() {
       
       <Studenci />
       <StudentManager />
+
+      {/* ============================================================
+        SEKCJA TESTOWA ZADANIA 6: EFEKTY
+        ============================================================
+      */}
+      <h2>✨ Zadanie 6: Efekty (6.1 - 6.3)</h2>
+      
+      <LicznikZEfektami />
+      <Tytul />
+      <Odliczanie />
 
     </div>
   );
