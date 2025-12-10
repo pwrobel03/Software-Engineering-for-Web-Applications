@@ -58,3 +58,10 @@ button {
   font-size: 3em;
   margin: 0.5em;
 }
+
+/* Zadanie 3 */
+.task3-input {
+  display: flex;
+  flex-direction: row;
+  gap:15px
+}
