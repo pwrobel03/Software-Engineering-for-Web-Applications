@@ -12,7 +12,7 @@ const Licznik: React.FC = () => {
     <div className="task-section">
       <h3>Licznik (Zadanie 2.1 - Komponent z własnym przyciskiem)</h3>
       <div className="counter-display">
-        Wartość licznika: {licznik}
+        Wartość licznika: <span className="highlight">{licznik}</span>
       </div>
       <button onClick={handleDodaj}>
         Dodaj

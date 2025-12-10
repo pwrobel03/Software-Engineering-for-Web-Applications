@@ -13,7 +13,7 @@ const NowyLicznik: React.FC = () => {
     <div className="task-section">
       <h3>NowyLicznik (Zadanie 2.2 - Funkcja jako Prop)</h3>
       <div className="counter-display">
-        Wartość licznika: {licznik}
+        Wartość licznika: <span className="highlight">{licznik}</span>
       </div>
       <Przycisk onClickHandler={inkrementuj} label="Dodaj z zewnątrz" />
     </div>

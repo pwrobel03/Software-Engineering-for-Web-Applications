@@ -32,10 +32,10 @@ const Komentarz: React.FC<KomentarzProps> = ({ commentData }) => {
           👍 Polubienia: {currentLikes}
         </span>
         
-        <button onClick={handleLike} style={{ backgroundColor: '#2ecc71', padding: '5px 10px', marginRight: '5px' }}>
+        <button onClick={handleLike} style={{ backgroundColor: '#2ecc71', marginRight: '5px' }}>
           Łapka w górę
         </button>
-        <button onClick={handleDislike} style={{ backgroundColor: 'tomato', padding: '5px 10px' }}>
+        <button onClick={handleDislike} style={{ backgroundColor: 'tomato' }}>
           Łapka w dół
         </button>
       </div>

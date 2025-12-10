@@ -23,7 +23,7 @@ const Formularz: React.FC = () => {
       />
 
       <div style={{ marginTop: '15px', borderBottom: '1px solid #ccc', padding: '10px' }}>
-        Replikacja: {tekst}
+        Replikacja: <span className="highlight">{tekst}</span>
       </div>
     </div>
   );

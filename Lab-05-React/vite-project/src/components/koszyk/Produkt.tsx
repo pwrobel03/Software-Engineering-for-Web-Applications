@@ -8,7 +8,7 @@ interface ProduktProps {
 const Produkt: React.FC<ProduktProps> = ({ nazwa }) => {
   return (
     <div className="product-item">
-    🧸 Produkt: **{nazwa}**
+    🧸 Produkt: <span className="highlight">{nazwa}</span>
     </div>
   );
 };
