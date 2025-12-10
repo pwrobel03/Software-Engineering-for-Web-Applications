@@ -1,0 +1,62 @@
+/* src/App.css */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #2c3e50;
+}
+
+h2 {
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+  margin-top: 30px;
+  color: #34495e;
+}
+
+hr {
+  margin: 40px 0;
+  border: 0;
+  border-top: 1px solid #ecf0f1;
+}
+
+/* Style pomocnicze dla zadań: */
+.task-section {
+  padding: 20px;
+  border: 1px dashed #bdc3c7;
+  margin-bottom: 20px;
+}
+
+.product-item,
+.counter-display {
+  padding: 10px;
+  margin: 5px 0;
+  border-left: 3px solid #e74c3c;
+  background-color: #f9f9f9;
+}
+
+button {
+  padding: 8px 15px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header span {
+  font-size: 3em;
+  margin: 0.5em;
+}
