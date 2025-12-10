@@ -70,3 +70,13 @@ button {
 .highlight {
   font-weight: bold;
 }
+
+/* Zadanie 5 */
+.students-table {
+  border-collapse: collapse;
+  margin-top: 15px;
+} 
+
+.students-table td, .students-table th{
+  padding: 4px 12px;
+}

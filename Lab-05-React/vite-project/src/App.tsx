@@ -13,6 +13,9 @@ import Logowanie from './components/formularze/Przycisk';
 import Ternary from './components/inne/Ternary';
 import Aktualizacja from './components/inne/Aktualizacja';
 
+import Studenci from './components/studenci/Studenci';
+import StudentManager from './components/studenci/StudentManager';
+
 function App() {
   return (
     <div className="container">
@@ -54,6 +57,15 @@ function App() {
       <h2>Zadanie 4: Inne (4.1, 4.2)</h2>
       <Ternary />
       <Aktualizacja />
+
+      {/* ============================================================
+        SEKCJA TESTOWA ZADANIA 5: STUDENCI
+        ============================================================
+      */}
+      <h2>Zadanie 5: Studenci (5.1, 5.2)</h2>
+      
+      <Studenci />
+      <StudentManager />
 
     </div>
   );
