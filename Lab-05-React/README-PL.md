@@ -49,7 +49,7 @@ npm install
 npm run dev
 ```
 
-Aplikacja będzie dostępna pod adresem, np. http://localhost:5174/. (Jeeli uruchomisz obie aplikację jednocześnie)
+Aplikacja będzie dostępna pod adresem, np. http://localhost:5174/. (Jeżeli uruchomisz obie aplikację jednocześnie)
 
 ## 🧩 Opis Zadań i Implementacji
 
