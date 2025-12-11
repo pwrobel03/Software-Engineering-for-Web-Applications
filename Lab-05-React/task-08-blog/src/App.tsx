@@ -1,6 +1,8 @@
 import './App.css';
 import LicznikLocalStorage from './components/LicznikLocalStorage.tsx';
 
+import BlogRouter from './components/BlogRouter.tsx';
+
 function App() {
   return (
     <div className="container">
@@ -14,6 +16,7 @@ function App() {
       
       {/* Tu będzie router dla Zadania 8.2 */}
       <h2>Zadanie 8.2: Aplikacja Blog z React Router</h2>
+      <BlogRouter />
       {/* <BlogRouter /> */}
       
     </div>

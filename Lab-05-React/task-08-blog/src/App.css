@@ -63,3 +63,8 @@ button {
 .highlight {
   font-weight: bold;
 }
+
+.blog-section {
+  display: flex;
+  flex-direction: column;
+}

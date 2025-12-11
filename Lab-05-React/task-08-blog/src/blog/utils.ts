@@ -1,38 +1,47 @@
 import type { NavigateFunction } from "react-router-dom";
-
-export interface Article {
-    id: number;
-    tytul: string;
-    tresc: string;
-}
+import type { Article } from "./blog";
 
 const STORAGE_KEY = "blogArticles";
 
-// Funkcja pomocnicza do odczytywania artykułów z LocalStorage
-export const getArticles = (): Article[] => {
+// Dane startowe (TYLKO stała)
+const initialArticles: Article[] = [
+    {
+        id: 1,
+        tytul: "Wprowadzenie do Reacta",
+        tresc: "React to biblioteka JS do budowania interfejsów.",
+    },
+    {
+        id: 2,
+        tytul: "Co to jest TypeScript?",
+        tresc: "TS dodaje statyczne typowanie do JavaScriptu.",
+    },
+];
+
+// 1. Funkcja inicjalizująca LocalStorage (wywołana tylko raz)
+export const initializeArticles = (): void => {
     const articlesJson = localStorage.getItem(STORAGE_KEY);
     if (!articlesJson) {
-        // Zwracamy przykładowe dane, jeśli LocalStorage jest pusty
-        const initialArticles: Article[] = [
-            {
-                id: 1,
-                tytul: "Wprowadzenie do Reacta",
-                tresc: "React to biblioteka JS do budowania interfejsów.",
-            },
-            {
-                id: 2,
-                tytul: "Co to jest TypeScript?",
-                tresc: "TS dodaje statyczne typowanie do JavaScriptu.",
-            },
-        ];
+        // Zapisujemy TYLKO, jeśli jest puste.
         localStorage.setItem(STORAGE_KEY, JSON.stringify(initialArticles));
+    }
+};
+
+// 2. Funkcja do CZYTANIA (czysta, bez side-effectów)
+export const getArticles = (): Article[] => {
+    initializeArticles(); // Upewniamy się, że dane są zainicjowane
+    const articlesJson = localStorage.getItem(STORAGE_KEY);
+
+    // Ponieważ wywołaliśmy initializeArticles(), articlesJson nie powinien być null,
+    // ale dla bezpieczeństwa:
+    if (!articlesJson) {
         return initialArticles;
     }
+
     try {
         return JSON.parse(articlesJson) as Article[];
     } catch (error) {
         console.error("Błąd podczas parsowania JSON z LocalStorage:", error);
-        return [];
+        return initialArticles;
     }
 };
 
